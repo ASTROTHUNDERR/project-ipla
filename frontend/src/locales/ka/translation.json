@@ -1,0 +1,26 @@
+{
+    "auth-footer": {
+        "languages": [
+            {
+                "code": "en",
+                "name": "ინგლისური"
+            },
+            {
+                "code": "ka",
+                "name": "ქართული"
+            }
+        ]
+    },
+    "auth": {
+        "login": {
+            "header": "ავტორიზაცია",
+            "email-header": "ელფოსტა",
+            "password-header": "პაროლი",
+            "forgot-password": "პაროლი დაგავიწყდა?",
+            "submit-button": "შესვლა",
+            "divider": "ან",
+            "no-account": "არ გაქვს ანგარიში?",
+            "no-account-button": "რეგისტრაცია"
+        }
+    }
+}

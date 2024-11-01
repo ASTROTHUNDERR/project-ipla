@@ -1,0 +1,26 @@
+.not-found-page {
+    height: 100dvh;
+    font-family: var(--font);
+    color: var(--secondary-50);
+}
+.not-found-inner {
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.not-found-status {
+    font-size: 22px;
+    text-shadow: 0 0 2px #FAFAFB;
+}
+.not-found-line {
+    height: 28px;
+    width: 1px;
+    background-color: var(--secondary-50);
+}
+.not-found-text {
+    font-size: 14px;
+}

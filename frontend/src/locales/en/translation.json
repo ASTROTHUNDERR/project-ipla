@@ -1,0 +1,26 @@
+{
+    "auth-footer": {
+        "languages": [
+            {
+                "code": "en",
+                "name": "English"
+            },
+            {
+                "code": "ka",
+                "name": "Georgian"
+            }
+        ]
+    },
+    "auth": {
+        "login": {
+            "header": "Authorization",
+            "email-header": "Email",
+            "password-header": "Passord",
+            "forgot-password": "Forgot your password?",
+            "submit-button": "Log in",
+            "divider": "OR",
+            "no-account": "Don't have an account?",
+            "no-account-button": "Register"
+        }
+    }
+}
