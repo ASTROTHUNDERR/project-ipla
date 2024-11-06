@@ -1,19 +1,23 @@
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
+import './config/passport';
 
 import { syncModels } from './models';
 import corsOptions from './config/corsOptions';
-import authRouter from './routes/authRoutes';
+import { authRouter, passwordRouter } from './routes';
 
 const port = 3011;
 const app = express();
 const server = http.createServer(app);
 
 app.use(express.json());
+app.use(passport.initialize());
 app.use(cors(corsOptions));
 
 app.use('/api/auth', authRouter);
+app.use('/api/pass', passwordRouter);
 
 
 async function startServer() {

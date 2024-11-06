@@ -1,0 +1,54 @@
+.helper-wrapper-expand {
+    animation: wrapper-expand 0.3s ease forwards; 
+}
+.helper-wrapper-collapse {
+    animation: wrapper-collapse 0.3s ease forwards; 
+}
+.helper-expand {
+    animation: expand 0.3s ease-in-out; 
+}
+.helper-collapse {
+    animation: collapse 0.3s ease-in-out; 
+}
+
+
+@keyframes wrapper-expand {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: auto;
+        opacity: 1;
+    }
+}
+@keyframes wrapper-collapse {
+    from {
+        height: 20px;
+        opacity: 1;
+    }
+    to {
+        height: 0;
+        opacity: 0;
+    }
+}
+@keyframes expand {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 100px;
+        opacity: 1;
+    }
+}
+@keyframes collapse {
+    from {
+        max-height: 100px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+    }
+}

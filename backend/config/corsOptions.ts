@@ -5,7 +5,7 @@ const corsOptions = {
         if (!origin || config.allowedOrigin.includes(origin)) {
             callback(null, true);
         } else {
-            callback(new Error('Not allowed by CORS'));
+            callback(null, false);
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

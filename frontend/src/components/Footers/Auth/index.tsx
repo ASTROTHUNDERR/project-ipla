@@ -1,5 +1,5 @@
 import styles from './AuthFooter.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ReactComponent as ChevronDownIcon } from '../../../assets/icons/chevron-down.svg';
@@ -15,12 +15,12 @@ export default function AuthFooter() {
     const { t, i18n } = useTranslation();
     const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
     const [languagePickerState, setLanguagePickerState] = useState(false);
+    const languageButtonRef = useRef<HTMLButtonElement | null>(null);
+    const languageSelectorRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        const savedLanguage = localStorage.getItem('language') || 'en';
-        setCurrentLanguage(savedLanguage);
-        i18n.changeLanguage(savedLanguage); 
-    }, [i18n]);
+    const languageNames: Language[] = t('footers.auth.languages', { returnObjects: true }) as Language[];
+    const currentLanguageName = languageNames.find(lang => lang.code === currentLanguage)?.name || currentLanguage;
+    const filteredLanguages = languageNames.filter(lang => lang.code !== currentLanguage);
 
     const handleLanguageChange = (lang: string) => {
         setCurrentLanguage(lang);
@@ -28,16 +28,47 @@ export default function AuthFooter() {
         i18n.changeLanguage(lang);
     };
 
-    const languageNames: Language[] = t('auth-footer.languages', { returnObjects: true }) as Language[];
-    const currentLanguageName = languageNames.find(lang => lang.code === currentLanguage)?.name || currentLanguage;
-    const filteredLanguages = languageNames.filter(lang => lang.code !== currentLanguage);
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('language') || 'en';
+        setCurrentLanguage(savedLanguage);
+        i18n.changeLanguage(savedLanguage); 
+    }, [i18n]);
+
+    useEffect(() => {
+        function rotateChevron() {
+            if (languageButtonRef.current) {
+                if (languagePickerState) {
+                    languageButtonRef.current.classList.add(styles['rotate']);
+                } else {
+                    languageButtonRef.current.classList.remove(styles['rotate']);
+                }
+            }
+        }
+        rotateChevron();
+
+        function onDocumentClick(event: Event) {
+            if (
+                languageSelectorRef.current && languageButtonRef.current 
+                && !languageSelectorRef.current.contains(event.target as Node)
+                && !languageButtonRef.current.contains(event.target as Node)
+            ) {
+                setLanguagePickerState(false);
+            }
+        };
+
+        document.addEventListener('mousedown', onDocumentClick);
+
+        return () => {
+            document.removeEventListener('mousedown', onDocumentClick);
+        }
+    }, [languagePickerState])
 
     return (
         <div className={`${styles['auth-footer']} flex row content-center relative`}>
-            <span className='margin-right-25'>Project © 2024</span>
+            <span className='margin-right-25 text-center'>Project © 2024</span>
             <div>
                 {languagePickerState && (
-                    <div className={`${styles['language-list']} flex column absolute`}>
+                    <div ref={languageSelectorRef} className={`${styles['language-list']} flex column absolute`}>
                         {filteredLanguages.map((lang) => (
                             <Button 
                                 key={lang.code}
@@ -49,10 +80,11 @@ export default function AuthFooter() {
                     </div>
                 )}
                 <Button 
+                    Ref={languageButtonRef}
                     innerElement={
-                        <span>
-                            <span>{currentLanguageName}</span>
-                            <ChevronDownIcon width={12} height={12} className='margin-left-15' />
+                        <span className='flex items-center'>
+                            <span className=''>{currentLanguageName}</span>
+                            <ChevronDownIcon width={12} height={12} className={`margin-left-15 ${styles['lng-chevron']}`} />
                         </span>
                     }
                     className={`${styles['language-button']}`}

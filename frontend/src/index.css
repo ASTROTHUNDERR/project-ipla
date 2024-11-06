@@ -89,6 +89,16 @@ button:disabled {
 input {
     border: none;
     outline: none;
+    background-color: inherit;
+}
+::selection {
+    background-color: var(--primary-50);
+    color: var(--secondary-500); 
+}
+
+/* Colors */
+.danger-color {
+    color: var(--danger-500) !important;
 }
 
 /* --------------- */
@@ -156,6 +166,9 @@ input {
 .margin-top-30 {
     margin-top: 30px;
 }
+.margin-top-45 {
+    margin-top: 45px;
+}
 
 /* Margin Left */
 /* --------------- */
@@ -198,4 +211,21 @@ input {
     width: 100%;
     height: 100dvh;
     user-select: none;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+}
+
+/*  */
+.helper-normal {
+    color: var(--secondary-200);
+}
+.helper-warning {
+    color: var(--danger-500);
 }

@@ -1,7 +1,8 @@
 .auth-footer {
     width: 100%;
-    bottom: 0;
-    position: fixed;
+    /* bottom: 0;
+    position: relative; */
+    /* margin-top: auto; */
     padding: 16px;
     color: var(--secondary-200);
     font-family: var(--font);
@@ -29,10 +30,9 @@
 .language-list-lng:hover {
     color: var(--secondary-500);
 }
-
-
-@media (max-height: 1024px) {
-    .auth-footer {
-        margin-top: 270px;
-    }
+.lng-chevron {
+    transition: transform 0.2s ease-in-out;
+}
+.language-button.rotate .lng-chevron {
+    transform: rotate(-180deg);
 }

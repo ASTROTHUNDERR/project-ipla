@@ -1,26 +1,197 @@
 {
-    "auth-footer": {
-        "languages": [
-            {
-                "code": "en",
-                "name": "English"
-            },
-            {
-                "code": "ka",
-                "name": "Georgian"
-            }
-        ]
+    "basic": {
+        "back": "Back"
+    },
+    "footers": {
+        "auth": {
+            "languages": [
+                {
+                    "code": "en",
+                    "name": "English"
+                },
+                {
+                    "code": "ka",
+                    "name": "Georgian"
+                }
+            ]
+        }
     },
     "auth": {
         "login": {
             "header": "Authorization",
-            "email-header": "Email",
-            "password-header": "Passord",
-            "forgot-password": "Forgot your password?",
-            "submit-button": "Log in",
+            "input_fields": [
+                {
+                    "header": "Email"
+                },
+                {
+                    "header": "Password"
+                }
+            ],
+            "forgot_password": "Forgot your password?",
+            "submit_button": "Log in",
             "divider": "OR",
-            "no-account": "Don't have an account?",
-            "no-account-button": "Register"
+            "footer": {
+                "text": "Don't have an account?",
+                "button_text": "Register"
+            },
+            "helper_texts": {
+                "email": {
+                    "error_texts": {
+                        "invalid": "Invalid email or password."
+                    }
+                },
+                "password": {
+                    "error_texts": {
+                        "invalid": "Invalid email or password."
+                    }
+                }
+            }
+        },
+        "registration": {
+            "intro": {
+                "header": "Create your account",
+                "cards": [
+                    {
+                        "header": "Player",
+                        "description": "Join teams, showcase your skills and be discovered by top teams seeking talent.",
+                        "bullets": [
+                            {
+                                "content": "Highlight your skills and achievements."
+                            },
+                            {
+                                "content": "Teams can scout you in the transfer market."
+                            },
+                            {
+                                "content": "Get transfer opportunities as teams negotiate for you."
+                            }
+                        ],
+                        "button": "Register as a Player"
+                    },
+                    {
+                        "header": "Manager",
+                        "description": "Scout and recruit talented players, and assist team owners with transfers.",
+                        "bullets": [
+                            {
+                                "content": "Discover players and recommend them to team owners."
+                            },
+                            {
+                                "content": "Assist in negotiating deals between teams."
+                            },
+                            {
+                                "content": "Highlight your past achievements and teams managed."
+                            }
+                        ],
+                        "button": "Register as a Manager"
+                    },
+                    {
+                        "header": "Team Owner",
+                        "description": "Control your roster, negotiate transfers, and build a winning team.",
+                        "bullets": [
+                            {
+                                "content": "Oversee all player and manager positions."
+                            },
+                            {
+                                "content": "Directly negotiate and authorize player and manager transfers."
+                            },
+                            {
+                                "content": "Build a championship roster and elevate your team's performance."
+                            }
+                        ],
+                        "button": "Register as Team Owner"
+                    }
+                ]
+            },
+            "form": {
+                "input_fields": [
+                    {
+                        "header": "Username"
+                    },
+                    {
+                        "header": "Email"
+                    },
+                    {
+                        "header": "Password"
+                    }
+                ],
+                "submit_button": "Register",
+                "footer": {
+                    "text": "Already have an account?",
+                    "button_text": "Log in"
+                },
+                "helper_texts": {
+                    "username": {
+                        "general": "Please use only letters, numbers and underscores (_).",
+                        "error_texts": {
+                            "length": "Username must be minimum 4 and maximum 14 characters long.",
+                            "in_use": "This username is already in use. Please choose another."
+                        }
+                    },
+                    "email": {
+                        "error_texts": {
+                            "invalid": "Invalid form of the email.",
+                            "in_use": "This email is already registered. Please choose another."
+                        }
+                    },
+                    "password": {
+                        "general": "Minimum 8 characters is required."
+                    }
+                }
+            }
+        },
+        "finish_registration": {
+            "header": "Finish Registration",
+            "input_field": {
+                "header": "Username"
+            },
+            "buttons": {
+                "cancel": "Cancel",
+                "next": "Next",
+                "submit": "Submit"
+            }
+        },
+        "password_reset": {
+            "header": "Password Reset",
+            "input_fields": {
+                "email": {
+                    "header": "Email"
+                }
+            },
+            "submit_button": "Send an Email",
+            "helper_texts": {
+                "email": {
+                    "invalid": "Invalid email format."
+                }
+            },
+            "footer": {
+                "text": "Remember your password?",
+                "button_text": "Log in"
+            },
+            "window_popup": {
+                "header": "Password Reset",
+                "description": "We’ve sent instructions to <0>{{email}}</0> on how to reset your password. Please check your inbox and spam folder if you don’t see it shortly."
+            }
+        },
+        "reset_password": {
+            "header": "Password Reset",
+            "input_fields": [
+                {
+                    "header": "New Password"
+                },
+                {
+                    "header": "Repeat New Password"
+                }
+            ],
+            "submit_button": "Reset Password",
+            "footer": {
+                "text": "Remember your password?",
+                "button_text": "Log in"
+            },
+            "helper_texts": {
+                "password": {
+                    "length": "Minimum 8 characters is required.",
+                    "match": "The passwords don't match."
+                }
+            }
         }
     }
 }

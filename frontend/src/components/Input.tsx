@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-export default function Input({
-    ...rest
-}: React.InputHTMLAttributes<HTMLInputElement>) {
-    return (
-        <input 
-            {...rest}
-        />
-    )
-};
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    placeHolder?: string;
+}
+
+const Input = forwardRef<HTMLInputElement, InputProps>(({ ...props }, ref) => {
+    return <input ref={ref} {...props} />;
+});
+
+export default Input;

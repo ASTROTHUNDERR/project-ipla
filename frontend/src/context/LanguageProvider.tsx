@@ -15,7 +15,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode })  =
 
     useEffect(() => {
         setLanguage(i18n.language)
-    }, [i18next.language])
+    }, [i18n.language])
 
     const changeLanguage = (lang: string) => {
         i18next.changeLanguage(lang);
@@ -29,10 +29,10 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode })  =
     );
 };
 
-export function useLanguage() {
+export function useLanguageContext() {
     const context = useContext(LanguageContext);
     if (!context) {
-        throw new Error('useHomeContext must be used within an AdminProvider');
+        throw new Error('useLanguageContext must be used within an AdminProvider');
     }
     return context;
 };

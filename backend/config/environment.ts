@@ -21,6 +21,15 @@ interface Config {
         baseUrl: string;
     };
     allowedOrigin: string;
+    mail: {
+        host: string;
+        port: number;
+        secure: boolean;
+        auth: {
+            user: string;
+            pass: string;
+        }
+    }
 }
 
 const config: Config = {
@@ -34,11 +43,20 @@ const config: Config = {
         port: parseInt(process.env.DB_PORT || '3306', 10),
         dbName: process.env.DB_NAME || 'ipla',
     },
-    jwtSecret: process.env.JWT_SECRET || 'your_jwt_secret',
+    jwtSecret: process.env.JWT_SECRET || 'jwt_secret',
     api: {
         baseUrl: process.env.API_BASE_URL || 'http://localhost:3011/api',
     },
-    allowedOrigin: process.env.ALLOWED_ORIGIN || 'http://localhost:3000'
+    allowedOrigin: process.env.ALLOWED_ORIGIN || 'http://localhost:3000',
+    mail: {
+        host: process.env.MAIL_HOST || '',
+        port: parseInt(process.env.MAIL_PORT || '') || 25,
+        secure: process.env.SECURE === 'true',
+        auth: {
+            user: process.env.MAIL_USERNAME || '',
+            pass: process.env.MAIL_PASSWORD || ''
+        }
+    }
 };
 
 export default config;

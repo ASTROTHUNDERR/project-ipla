@@ -1,0 +1,26 @@
+.submit-buttons-wrapper {
+    width: 100%;
+    flex-direction: row;
+    gap: 25px;
+    justify-content: flex-end;
+}
+.button {
+    height: 32px;
+    padding: 6px 25px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: var(--secondary-50);
+    stroke: var(--secondary-50);
+}
+.button.submit {
+    background-color: var(--primary-500);
+}
+.button.submit:hover {
+    background-color: var(--primary-400);
+}
+
+@media (max-width: 250px) {
+    .submit-buttons-wrapper {
+        flex-direction: column;
+    }
+}

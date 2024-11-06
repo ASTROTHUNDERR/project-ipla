@@ -14,7 +14,7 @@
 }
 .not-found-status {
     font-size: 22px;
-    text-shadow: 0 0 2px #FAFAFB;
+    text-shadow: 0 0 2px var(--secondary-50);
 }
 .not-found-line {
     height: 28px;
