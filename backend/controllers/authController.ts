@@ -6,7 +6,6 @@ import { User, UserRole, AuthHold, AuthProvider } from '../models';
 import { AuthenticatedRequest } from '../utils/types';
 import { generateAccessToken, generateRefreshToken } from '../utils/tokenUtils';
 
-const OAUTH2_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 class AuthSchemas {
     static authorizationSchema = z.object({

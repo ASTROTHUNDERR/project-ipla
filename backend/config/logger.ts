@@ -19,11 +19,11 @@ const logger = winston.createLogger({
             ),
         }),
         new winston.transports.File({
-            filename: path.join(__dirname, 'logs', 'error.log'),
+            filename: path.join(__dirname, '..', 'logs', 'error.log'),
             level: 'error',
         }),
         new winston.transports.File({
-            filename: path.join(__dirname, 'logs', 'combined.log'),
+            filename: path.join(__dirname, '..', 'logs', 'combined.log'),
         }),
     ],
 });
@@ -33,7 +33,7 @@ logger.exceptions.handle(
 );
 
 logger.rejections.handle(
-    new winston.transports.File({ filename: path.join(__dirname, 'logs', 'rejections.log') })
+    new winston.transports.File({ filename: path.join(__dirname, '..', 'logs', 'rejections.log') })
 );
 
 export default logger;
