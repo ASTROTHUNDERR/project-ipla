@@ -1,0 +1,39 @@
+.card {
+    min-width: 250px;
+    min-height: 225px;
+    font-family: var(--font);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--primary-500);
+    background-color: var(--secondary-500);
+    user-select: none;
+}
+.header {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--secondary-50);
+    z-index: 1;
+}
+.description {
+    font-size: 14px;
+    color: var(--secondary-100);
+    z-index: 1;
+}
+.button {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: var(--secondary-50);
+    background-color: var(--primary-500);
+}
+.button:hover {
+    background-color: var(--primary-400);
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+        min-width: auto;
+    }
+}

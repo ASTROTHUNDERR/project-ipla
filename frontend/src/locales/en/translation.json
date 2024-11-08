@@ -193,5 +193,21 @@
                 }
             }
         }
+    },
+    "support": {
+        "header": "Support",
+        "banner_text": "We're here to help! Explore our support options below and reach out if you need assistance.",
+        "cards": {
+            "email": {
+                "header": "Email Us",
+                "description": "Need help with something specific? Reach out to us directly via email, and we’ll get back to you as soon as possible.",
+                "button_text": "Send an Email"
+            },
+            "discord": {
+                "header": "Join Our Discord",
+                "description": "Join our community on Discord! Connect with other users, get real-time support, and stay updated with the latest news.",
+                "button_text": "Join Discord"
+            }
+        }
     }
 }

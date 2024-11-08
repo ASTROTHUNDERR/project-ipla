@@ -91,6 +91,9 @@ input {
     outline: none;
     background-color: inherit;
 }
+a {
+    text-decoration: none;
+}
 ::selection {
     background-color: var(--primary-50);
     color: var(--secondary-500); 
@@ -210,7 +213,7 @@ input {
 .main-content {
     width: 100%;
     height: 100dvh;
-    user-select: none;
+    /* user-select: none; */
 }
 .overlay {
     position: fixed;

@@ -1,5 +1,7 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useLanguageContext } from '../context/LanguageProvider';
+
 import ProtectedRoute from '../components/ProtectedRoute';
 
 import NotFoundPage from '../pages/NotFoundPage';
@@ -10,7 +12,17 @@ import FinishRegistration from '../pages/Auth/FinishRegistration';
 import PasswordReset from '../pages/Auth/PasswordReset';
 import ResetPassword from '../pages/Auth/ResetPassword';
 
+import Support from '../pages/Support';
+
 import Home from '../pages/Home';
+
+function ExternalRedirect({ url }: { url: string }) {
+    React.useEffect(() => {
+      window.location.href = url;
+    }, [url]);
+  
+    return null;
+};
 
 export default function AppRoutes() {
     const { language } = useLanguageContext();
@@ -31,6 +43,9 @@ export default function AppRoutes() {
                 <Route path={`${prefix}`} element={<Home />} />
             </Route>
 
+            <Route path={`${prefix}/support`} element={<Support />} />
+
+            <Route path='/discord' element={<ExternalRedirect url='https://discord.gg/m2UJBaB4Hz' />} />
             <Route path='/notfound' element={<NotFoundPage />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>

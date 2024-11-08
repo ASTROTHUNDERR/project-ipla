@@ -13,8 +13,8 @@ interface Language {
 
 export default function AuthFooter() {
     const { t, i18n } = useTranslation();
-    const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
     const [languagePickerState, setLanguagePickerState] = useState(false);
+    const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
     const languageButtonRef = useRef<HTMLButtonElement | null>(null);
     const languageSelectorRef = useRef<HTMLDivElement | null>(null);
 
