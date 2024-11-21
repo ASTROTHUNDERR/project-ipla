@@ -9,10 +9,10 @@ import Button from '../../../../../components/Button';
 import RegistrationCard from '../Card';
 
 export default function RegistrationIntro() {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['registration', 'translation']);
     const navigate = useNavigate(); 
 
-    const cards: Card[] = t('auth.registration.intro.cards', { returnObjects: true }) as Card[];
+    const cards: Card[] = t('registration.intro.cards', { returnObjects: true }) as Card[];
     const updatedCards = cards.map(card => {
         const cardType = (card.header.toLowerCase() === 'player' || card.header.toLowerCase() === 'მოთამაშე') ? 'player'
             : (card.header.toLowerCase() === 'manager' || card.header.toLowerCase() === 'მენეჯერი') ? 'manager' : 'team owner'
@@ -27,12 +27,12 @@ export default function RegistrationIntro() {
             <section className='auth-content-wrapper flex items-center content-center column'>
                 <div className='intro-content-wrapper relative'>
                     <div className='auth-content-title-wrapper flex content-center text-center flex row intro-header'>
-                        <h1 className='auth-title'>{t('auth.registration.intro.header')}</h1>
+                        <h1 className='auth-title'>{t('registration.intro.header')}</h1>
                         <Button 
                             innerElement={
                                 <span className='flex row items-center content-center'>
                                     <ChevronLeftIcon width={16} height={16} />
-                                    <span className='margin-left-5'>{t('basic.back')}</span>
+                                    <span className='margin-left-5'>{t('basic.back', { ns: 'translation' })}</span>
                                 </span>
                             }
                             className='auth-back-button flex items-center intro-back-button'

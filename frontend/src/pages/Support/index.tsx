@@ -6,7 +6,7 @@ import bannerIconsSVG from '../../assets/support/banner-icons.svg';
 import { ReactComponent as EmailIconSVG } from '../../assets/support/email.svg';
 import { ReactComponent as DiscordIconSVG } from '../../assets/support/discord-mark-white.svg';
 
-import SupportNavbar from './components/Navbar';
+import Navbar from '../../components/Navbar/Unauthorized';
 import SupportCard from './components/Card';
 
 function Support() {
@@ -14,7 +14,7 @@ function Support() {
 
     return (
         <div className='main-content flex column items-center'>
-            <SupportNavbar />
+            <Navbar />
             <main className={`${styles['main']} flex column`}>
                 <header className={`${styles['header']} text-center`}>
                     {t('support.header')}

@@ -38,11 +38,13 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         try {
             const response = await API.post(endpoint, data);
+            console.log(response)
             return { data: response.data, error: null };
         } catch (err) {
+            console.log(err)
             const error = err as AxiosError;
             const errorMessage = error.response
-                ? (error.response.data as any).message
+                ? (error.response.data as any).errorMessage
                 : 'Network error, please try again later.';
             return { data: null, error: errorMessage };
         } finally {

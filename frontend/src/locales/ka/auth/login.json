@@ -1,0 +1,30 @@
+{
+    "header": "ავტორიზაცია",
+    "input_fields": [
+        {
+            "header": "ელფოსტა"
+        },
+        {
+            "header": "პაროლი"
+        }
+    ],
+    "forgot_password": "პაროლი დაგავიწყდა?",
+    "submit_button": "შესვლა",
+    "divider": "ან",
+    "footer": {
+        "text": "არ გაქვს ანგარიში?",
+        "button_text": "რეგისტრაცია"
+    },
+    "helper_texts": {
+        "email": {
+            "error_texts": {
+                "invalid": "ელფოსტა ან პაროლი არასწორია."
+            }
+        },
+        "password": {
+            "error_texts": {
+                "invalid": "ელფოსტა ან პაროლი არასწორია."
+            }
+        }
+    }
+}

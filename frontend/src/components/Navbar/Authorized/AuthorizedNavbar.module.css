@@ -1,0 +1,28 @@
+.navbar {
+    width: 100%;
+    height: 64px;
+    padding: 16px 25px;
+    background-color: transparent;
+    font-family: var(--font);
+    color: var(--primary-50);
+    border-bottom: 1px solid var(--primary-500);
+    z-index: 1;
+}
+.head-text {
+    font-size: 20px;
+    font-weight: 500;
+}   
+.options-button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+}
+.user-avatar-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--secondary-300);
+}
+.user-avatar-wrapper svg {
+    stroke: var(--secondary-50) !important;
+}

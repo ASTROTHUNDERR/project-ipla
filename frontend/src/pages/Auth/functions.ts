@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { HelperMessages } from "./types";
 
 export function capitalizeWords(str: string | null) {
@@ -120,4 +121,66 @@ export function handleUsernameInput(
         }
     }))
     return false;
+};
+
+export function validateBirthDate(
+    birthDay: string, 
+    birthMonth: string, 
+    birthYear: string,
+    months: {
+        value: string;
+        content: string;
+    }[],
+    t: TFunction<[string, string], undefined>,
+    setHelperMessages: (value: React.SetStateAction<HelperMessages>) => void
+) {
+    if (birthDay && birthMonth && birthYear) {
+        const month = months.find(month => month.content === birthMonth);
+        if (!month) {
+            setHelperMessages(prev => ({
+                ...prev,
+                birthDate: {
+                    text: t('registration.form.helper_texts.birth_date.error_texts.invalid'),
+                    danger: true
+                }
+            }));
+            return;
+        }
+
+        const dayFormatted = birthDay.length === 1 ? `0${birthDay}` : birthDay;
+        const combinedDate = new Date(`${birthYear}-${month.value}-${dayFormatted}`);
+
+        const isValidDate =
+            combinedDate.getFullYear() === parseInt(birthYear) &&
+            combinedDate.getMonth() + 1 === parseInt(month.value) &&
+            combinedDate.getDate() === parseInt(dayFormatted);
+
+        if (!isValidDate) {
+            setHelperMessages(prev => ({
+                ...prev,
+                birthDate: {
+                    text: t('registration.form.helper_texts.birth_date.error_texts.unreal'),
+                    danger: true
+                }
+            }));
+            return;
+        }
+
+        if (!isNaN(combinedDate.getTime())) {
+            setHelperMessages(prev => ({
+                ...prev,
+                birthDate: undefined
+            }));
+            return combinedDate;
+        } else {
+            setHelperMessages(prev => ({
+                ...prev,
+                birthDate: {
+                    text: t('registration.form.helper_texts.birth_date.error_texts.invalid'),
+                    danger: true
+                }
+            }));
+            return;
+        }
+    }
 };

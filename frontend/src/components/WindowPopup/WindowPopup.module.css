@@ -1,7 +1,6 @@
 .window {
-    padding: 15px;
+    padding: 20px;
     border-radius: 6px;
-    width: 390px;
     background-color: var(--secondary-500);
     z-index: 1;
     font-family: var(--font);

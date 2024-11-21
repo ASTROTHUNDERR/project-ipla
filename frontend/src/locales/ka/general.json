@@ -1,0 +1,24 @@
+{
+    "words": {
+        "back": "უკან"
+    },
+    "date": {
+        "day": "დღე",
+        "month": "თვე",
+        "year": "წელი"
+    },
+    "months": [
+        { "value": "01", "content": "იანვარი" },
+        { "value": "02", "content": "თებერვალი" },
+        { "value": "03", "content": "მარტი" },
+        { "value": "04", "content": "აპრილი" },
+        { "value": "05", "content": "მაისი" },
+        { "value": "06", "content": "ივნისი" },
+        { "value": "07", "content": "ივლისი" },
+        { "value": "08", "content": "აგვისტო" },
+        { "value": "09", "content": "სექტემბერი" },
+        { "value": "10", "content": "ოქტომბერი" },
+        { "value": "11", "content": "ნოემბერი" },
+        { "value": "12", "content": "დეკემბერი" }
+    ]
+}

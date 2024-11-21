@@ -10,6 +10,8 @@ class User extends Model {
     declare username: string;
     declare email: string;
     declare password: string;
+    declare birthDate: Date;
+    declare country: string;
     declare type: 'player' | 'manager' | 'team_owner';
     declare Roles: typeof Role[];
 
@@ -82,6 +84,14 @@ User.init(
             validate: {
                 min: 8
             }
+        },
+        birthDate: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        country: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         type: {
             type: DataTypes.ENUM,

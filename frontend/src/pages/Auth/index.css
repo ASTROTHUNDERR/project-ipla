@@ -31,7 +31,7 @@
     height: 100dvh;
 }
 .auth-content {
-    padding: 60px;
+    padding: 45px 60px 45px;
     transition: padding 300ms;
     flex: 1;
 }
@@ -61,6 +61,9 @@
 }
 .auth-helper-wrapper a {
     color: var(--primary-300);
+}
+.auth-helper-wrapper a:hover {
+    text-decoration: underline;
 }
 .auth-helper-wrapper.top {
     margin-top: 3px;
@@ -125,6 +128,72 @@
 }
 
 
+.bd-header {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--secondary-50);
+}
+.bd-input::placeholder {
+    color: var(--secondary-200);
+}
+.bd-input,
+.auth-selection {
+    height: 40px;
+    padding: 9px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--secondary-50);
+    border: 1px solid var(--primary-500);
+    background-color: transparent;
+    outline: none;
+    transition: width 300ms;
+}
+.bd-input.day {
+    width: 65px;
+}
+.bd-input.year {
+    width: 100px;
+}
+.auth-selection {
+    width: 140px;
+    stroke: var(--secondary-50);
+    transition: width 300ms;
+    overflow: hidden;
+}
+.auth-selection-wrapper {
+    padding: 4px;
+    border: 1px solid var(--secondary-400);
+    border-radius: 6px;
+    background-color: var(--secondary-500);
+    max-height: 270px;
+    overflow-y: auto;
+    box-shadow: 0px 0px 4px 2px rgba(75, 75, 75, 0.15);
+}
+.auth-selection-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+.auth-selection-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: var(--secondary-400);
+}
+.auth-selection-option {
+    margin: 3px 0;
+    border-radius: 3px;
+    padding: 3px 4px;
+    color: var(--secondary-50);
+}
+.auth-selection-option:hover {
+    background-color: var(--secondary-400);
+}
+
+.bd-field-content-wrapper {
+    gap: 9px;
+}
+.bd-field-inps-wrapper {
+    /* width: fit-content; */
+    gap: 9px;
+}
 
 @keyframes expand {
     from {
@@ -150,9 +219,6 @@
 @media (max-width: 880px) {
     .auth-content {
         padding: 35px;
-    }
-    .auth-back-button.form {
-        align-self: flex-start;
     }
     .cards-wrapper {
         flex-direction: column;
@@ -183,6 +249,7 @@
         padding-right: 25px;
     }
     .auth-login-content {
+        min-width: auto;
         width: 100%;
         padding: 0;
     }
@@ -191,5 +258,22 @@
     }
     .intro-back-button {
         justify-content: center;
+    }
+
+    .bd-field-content-wrapper {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .bd-field-inps-wrapper {
+        gap: 12px;
+    }
+    .bd-input.day {
+        width: 100%;
+    }
+    .bd-input.year {
+        width: 100%;
+    }
+    .auth-selection {
+        width: 100%;
     }
 }

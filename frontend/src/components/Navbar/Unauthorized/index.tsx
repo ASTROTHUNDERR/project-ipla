@@ -1,17 +1,17 @@
-import styles from './SupportNavbar.module.css';
+import styles from './UnauthorizedNavbar.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ReactComponent as ChevronDownIcon } from '../../../../assets/icons/chevron-down.svg';
+import { ReactComponent as ChevronDownIcon } from '../../../assets/icons/chevron-down.svg';
 
-import Button from '../../../../components/Button';
+import Button from '../../Button';
 
 interface Language {
     code: string;
     name: string;
 }
 
-export default function SupportNavbar() {
+export default function UnauthorizedNavbar() {
     const { t, i18n } = useTranslation();
     const [languagePickerState, setLanguagePickerState] = useState(false);
     const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
@@ -33,10 +33,10 @@ export default function SupportNavbar() {
     };
 
     return (
-        <nav className={`${styles['navbar']} flex space-between`}>
-            <div className='flex items-center'>
+        <nav className='navbar-secondary flex space-between'>
+            <a href='/' className='flex items-center'>
                 <span className={styles['head-text']}>Project IPLA</span>
-            </div>
+            </a>
             <div className='relative'>
                 <Button 
                     innerElement={

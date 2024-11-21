@@ -1,8 +1,9 @@
 
+import HomeUI from './UI';
 
 function Home() {
     return (
-        <div style={{ color: 'white' }}>Hello World</div>
+        <HomeUI />    
     )
 };
 

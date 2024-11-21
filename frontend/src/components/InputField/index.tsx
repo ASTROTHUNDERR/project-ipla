@@ -1,4 +1,4 @@
-import styles from './InputField.module.css';
+import './styles.css';
 import React from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
@@ -34,22 +34,22 @@ export default function InputField({
     onInput
 }: Props) {
     return (
-        <div className={`${styles['input-field']} flex column ${className ? className : ''}`}>
-            <label className={styles['field-head']}>{headText}</label>
+        <div className={`input-field flex column ${className ? className : ''}`}>
+            <label className={'field-head'}>{headText}</label>
             <Input 
                 type={inputType}
                 {...register(inputName, { required })} 
                 placeholder={placeHolder}
                 required={required}
-                className={styles['field-input']}
+                className={'field-input'}
                 name={inputName}
                 defaultValue={defaultValue}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onInput={onInput}
             />
-            <div className={`${styles['helper-wrapper']} ${helperMessage?.danger ? styles['error'] : ''} field-input-helper-wrapper`}>
-                <span className={`${styles['helper']} field-input-helper ${helperMessage?.danger ? 'danger-color' : ''}`}>{helperMessage?.text}</span>
+            <div className={`field-helper-wrapper ${helperMessage?.danger ? 'error' : ''} field-input-helper-wrapper`}>
+                <span className={`field-helper field-input-helper ${helperMessage?.danger ? 'danger-color' : ''}`}>{helperMessage?.text}</span>
             </div>
         </div>
     )

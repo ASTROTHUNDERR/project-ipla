@@ -1,7 +1,4 @@
 {
-    "basic": {
-        "back": "Back"
-    },
     "footers": {
         "auth": {
             "languages": [
@@ -14,184 +11,6 @@
                     "name": "Georgian"
                 }
             ]
-        }
-    },
-    "auth": {
-        "login": {
-            "header": "Authorization",
-            "input_fields": [
-                {
-                    "header": "Email"
-                },
-                {
-                    "header": "Password"
-                }
-            ],
-            "forgot_password": "Forgot your password?",
-            "submit_button": "Log in",
-            "divider": "OR",
-            "footer": {
-                "text": "Don't have an account?",
-                "button_text": "Register"
-            },
-            "helper_texts": {
-                "email": {
-                    "error_texts": {
-                        "invalid": "Invalid email or password."
-                    }
-                },
-                "password": {
-                    "error_texts": {
-                        "invalid": "Invalid email or password."
-                    }
-                }
-            }
-        },
-        "registration": {
-            "intro": {
-                "header": "Create your account",
-                "cards": [
-                    {
-                        "header": "Player",
-                        "description": "Join teams, showcase your skills and be discovered by top teams seeking talent.",
-                        "bullets": [
-                            {
-                                "content": "Highlight your skills and achievements."
-                            },
-                            {
-                                "content": "Teams can scout you in the transfer market."
-                            },
-                            {
-                                "content": "Get transfer opportunities as teams negotiate for you."
-                            }
-                        ],
-                        "button": "Register as a Player"
-                    },
-                    {
-                        "header": "Manager",
-                        "description": "Scout and recruit talented players, and assist team owners with transfers.",
-                        "bullets": [
-                            {
-                                "content": "Discover players and recommend them to team owners."
-                            },
-                            {
-                                "content": "Assist in negotiating deals between teams."
-                            },
-                            {
-                                "content": "Highlight your past achievements and teams managed."
-                            }
-                        ],
-                        "button": "Register as a Manager"
-                    },
-                    {
-                        "header": "Team Owner",
-                        "description": "Control your roster, negotiate transfers, and build a winning team.",
-                        "bullets": [
-                            {
-                                "content": "Oversee all player and manager positions."
-                            },
-                            {
-                                "content": "Directly negotiate and authorize player and manager transfers."
-                            },
-                            {
-                                "content": "Build a championship roster and elevate your team's performance."
-                            }
-                        ],
-                        "button": "Register as Team Owner"
-                    }
-                ]
-            },
-            "form": {
-                "input_fields": [
-                    {
-                        "header": "Username"
-                    },
-                    {
-                        "header": "Email"
-                    },
-                    {
-                        "header": "Password"
-                    }
-                ],
-                "submit_button": "Register",
-                "footer": {
-                    "text": "Already have an account?",
-                    "button_text": "Log in"
-                },
-                "helper_texts": {
-                    "username": {
-                        "general": "Please use only letters, numbers and underscores (_).",
-                        "error_texts": {
-                            "length": "Username must be minimum 4 and maximum 14 characters long.",
-                            "in_use": "This username is already in use. Please choose another."
-                        }
-                    },
-                    "email": {
-                        "error_texts": {
-                            "invalid": "Invalid form of the email.",
-                            "in_use": "This email is already registered. Please choose another."
-                        }
-                    },
-                    "password": {
-                        "general": "Minimum 8 characters is required."
-                    }
-                }
-            }
-        },
-        "finish_registration": {
-            "header": "Finish Registration",
-            "input_field": {
-                "header": "Username"
-            },
-            "buttons": {
-                "cancel": "Cancel",
-                "next": "Next",
-                "submit": "Submit"
-            }
-        },
-        "password_reset": {
-            "header": "Password Reset",
-            "input_fields": {
-                "email": {
-                    "header": "Email"
-                }
-            },
-            "submit_button": "Send an Email",
-            "helper_texts": {
-                "email": {
-                    "invalid": "Invalid email format."
-                }
-            },
-            "footer": {
-                "text": "Remember your password?",
-                "button_text": "Log in"
-            },
-            "window_popup": {
-                "header": "Password Reset",
-                "description": "We’ve sent instructions to <0>{{email}}</0> on how to reset your password. Please check your inbox and spam folder if you don’t see it shortly."
-            }
-        },
-        "reset_password": {
-            "header": "Password Reset",
-            "input_fields": [
-                {
-                    "header": "New Password"
-                },
-                {
-                    "header": "Repeat New Password"
-                }
-            ],
-            "submit_button": "Reset Password",
-            "footer": {
-                "text": "Remember your password?",
-                "button_text": "Log in"
-            },
-            "helper_texts": {
-                "password": {
-                    "length": "Minimum 8 characters is required.",
-                    "match": "The passwords don't match."
-                }
-            }
         }
     },
     "support": {
@@ -209,5 +28,223 @@
                 "button_text": "Join Discord"
             }
         }
+    },
+    "basic": {
+        "back": "Back",
+        "date": {
+            "day": "Day",
+            "month": "Month",
+            "year": "Year"
+        },
+        "months": [
+            { "value": "01", "content": "January" },
+            { "value": "02", "content": "February" },
+            { "value": "03", "content": "March" },
+            { "value": "04", "content": "April" },
+            { "value": "05", "content": "May" },
+            { "value": "06", "content": "June" },
+            { "value": "07", "content": "July" },
+            { "value": "08", "content": "August" },
+            { "value": "09", "content": "September" },
+            { "value": "10", "content": "October" },
+            { "value": "11", "content": "November" },
+            { "value": "12", "content": "December" }
+        ],
+        "registration_countries": [
+            { "value": 0, "name": "Afghanistan" },
+            { "value": 1, "name": "Albania" },
+            { "value": 2, "name": "Algeria" },
+            { "value": 3, "name": "Andorra" },
+            { "value": 4, "name": "Angola" },
+            { "value": 5, "name": "Antigua and Barbuda" },
+            { "value": 6, "name": "Argentina" },
+            { "value": 7, "name": "Armenia" },
+            { "value": 8, "name": "Australia" },
+            { "value": 9, "name": "Austria" },
+            { "value": 10, "name": "Azerbaijan" },
+            { "value": 11, "name": "Bahamas" },
+            { "value": 12, "name": "Bahrain" },
+            { "value": 13, "name": "Bangladesh" },
+            { "value": 14, "name": "Barbados" },
+            { "value": 15, "name": "Belarus" },
+            { "value": 16, "name": "Belgium" },
+            { "value": 17, "name": "Belize" },
+            { "value": 18, "name": "Benin" },
+            { "value": 19, "name": "Bhutan" },
+            { "value": 20, "name": "Bolivia" },
+            { "value": 21, "name": "Bosnia and Herzegovina" },
+            { "value": 22, "name": "Botswana" },
+            { "value": 23, "name": "Brazil" },
+            { "value": 24, "name": "Brunei" },
+            { "value": 25, "name": "Bulgaria" },
+            { "value": 26, "name": "Burkina Faso" },
+            { "value": 27, "name": "Burundi" },
+            { "value": 28, "name": "Cabo Verde" },
+            { "value": 29, "name": "Cambodia" },
+            { "value": 30, "name": "Cameroon" },
+            { "value": 31, "name": "Canada" },
+            { "value": 32, "name": "Central African Republic" },
+            { "value": 33, "name": "Chad" },
+            { "value": 34, "name": "Chile" },
+            { "value": 35, "name": "China" },
+            { "value": 36, "name": "Colombia" },
+            { "value": 37, "name": "Comoros" },
+            { "value": 38, "name": "Congo (Congo-Brazzaville)" },
+            { "value": 39, "name": "Costa Rica" },
+            { "value": 40, "name": "Croatia" },
+            { "value": 41, "name": "Cuba" },
+            { "value": 42, "name": "Cyprus" },
+            { "value": 43, "name": "Czechia (Czech Republic)" },
+            { "value": 44, "name": "Denmark" },
+            { "value": 45, "name": "Djibouti" },
+            { "value": 46, "name": "Dominica" },
+            { "value": 47, "name": "Dominican Republic" },
+            { "value": 48, "name": "Ecuador" },
+            { "value": 49, "name": "Egypt" },
+            { "value": 50, "name": "El Salvador" },
+            { "value": 51, "name": "Equatorial Guinea" },
+            { "value": 52, "name": "Eritrea" },
+            { "value": 53, "name": "Estonia" },
+            { "value": 54, "name": "Eswatini (fmr. Swaziland)" },
+            { "value": 55, "name": "Ethiopia" },
+            { "value": 56, "name": "Fiji" },
+            { "value": 57, "name": "Finland" },
+            { "value": 58, "name": "France" },
+            { "value": 59, "name": "Gabon" },
+            { "value": 60, "name": "Gambia" },
+            { "value": 61, "name": "Georgia" },
+            { "value": 62, "name": "Germany" },
+            { "value": 63, "name": "Ghana" },
+            { "value": 64, "name": "Greece" },
+            { "value": 65, "name": "Grenada" },
+            { "value": 66, "name": "Guatemala" },
+            { "value": 67, "name": "Guinea" },
+            { "value": 68, "name": "Guinea-Bissau" },
+            { "value": 69, "name": "Guyana" },
+            { "value": 70, "name": "Haiti" },
+            { "value": 71, "name": "Holy See" },
+            { "value": 72, "name": "Honduras" },
+            { "value": 73, "name": "Hungary" },
+            { "value": 74, "name": "Iceland" },
+            { "value": 75, "name": "India" },
+            { "value": 76, "name": "Indonesia" },
+            { "value": 77, "name": "Iran" },
+            { "value": 78, "name": "Iraq" },
+            { "value": 79, "name": "Ireland" },
+            { "value": 80, "name": "Israel" },
+            { "value": 81, "name": "Italy" },
+            { "value": 82, "name": "Jamaica" },
+            { "value": 83, "name": "Japan" },
+            { "value": 84, "name": "Jordan" },
+            { "value": 85, "name": "Kazakhstan" },
+            { "value": 86, "name": "Kenya" },
+            { "value": 87, "name": "Kiribati" },
+            { "value": 88, "name": "Kuwait" },
+            { "value": 89, "name": "Kyrgyzstan" },
+            { "value": 90, "name": "Laos" },
+            { "value": 91, "name": "Latvia" },
+            { "value": 92, "name": "Lebanon" },
+            { "value": 93, "name": "Lesotho" },
+            { "value": 94, "name": "Liberia" },
+            { "value": 95, "name": "Libya" },
+            { "value": 96, "name": "Liechtenstein" },
+            { "value": 97, "name": "Lithuania" },
+            { "value": 98, "name": "Luxembourg" },
+            { "value": 99, "name": "Madagascar" },
+            { "value": 100, "name": "Malawi" },
+            { "value": 101, "name": "Malaysia" },
+            { "value": 102, "name": "Maldives" },
+            { "value": 103, "name": "Mali" },
+            { "value": 104, "name": "Malta" },
+            { "value": 105, "name": "Marshall Islands" },
+            { "value": 106, "name": "Mauritania" },
+            { "value": 107, "name": "Mauritius" },
+            { "value": 108, "name": "Mexico" },
+            { "value": 109, "name": "Micronesia" },
+            { "value": 110, "name": "Moldova" },
+            { "value": 111, "name": "Monaco" },
+            { "value": 112, "name": "Mongolia" },
+            { "value": 113, "name": "Montenegro" },
+            { "value": 114, "name": "Morocco" },
+            { "value": 115, "name": "Mozambique" },
+            { "value": 116, "name": "Myanmar (Burma)" },
+            { "value": 117, "name": "Namibia" },
+            { "value": 118, "name": "Nauru" },
+            { "value": 119, "name": "Nepal" },
+            { "value": 120, "name": "Netherlands" },
+            { "value": 121, "name": "New Zealand" },
+            { "value": 122, "name": "Nicaragua" },
+            { "value": 123, "name": "Niger" },
+            { "value": 124, "name": "Nigeria" },
+            { "value": 125, "name": "North Korea" },
+            { "value": 126, "name": "North Macedonia" },
+            { "value": 127, "name": "Norway" },
+            { "value": 128, "name": "Oman" },
+            { "value": 129, "name": "Pakistan" },
+            { "value": 130, "name": "Palau" },
+            { "value": 131, "name": "Palestine State" },
+            { "value": 132, "name": "Panama" },
+            { "value": 133, "name": "Papua New Guinea" },
+            { "value": 134, "name": "Paraguay" },
+            { "value": 135, "name": "Peru" },
+            { "value": 136, "name": "Philippines" },
+            { "value": 137, "name": "Poland" },
+            { "value": 138, "name": "Portugal" },
+            { "value": 139, "name": "Qatar" },
+            { "value": 140, "name": "Romania" },
+            { "value": 141, "name": "Russia" },
+            { "value": 142, "name": "Rwanda" },
+            { "value": 143, "name": "Saint Kitts and Nevis" },
+            { "value": 144, "name": "Saint Lucia" },
+            { "value": 145, "name": "Saint Vincent and the Grenadines" },
+            { "value": 146, "name": "Samoa" },
+            { "value": 147, "name": "San Marino" },
+            { "value": 148, "name": "Sao Tome and Principe" },
+            { "value": 149, "name": "Saudi Arabia" },
+            { "value": 150, "name": "Senegal" },
+            { "value": 151, "name": "Serbia" },
+            { "value": 152, "name": "Seychelles" },
+            { "value": 153, "name": "Sierra Leone" },
+            { "value": 154, "name": "Singapore" },
+            { "value": 155, "name": "Slovakia" },
+            { "value": 156, "name": "Slovenia" },
+            { "value": 157, "name": "Solomon Islands" },
+            { "value": 158, "name": "Somalia" },
+            { "value": 159, "name": "South Africa" },
+            { "value": 160, "name": "South Korea" },
+            { "value": 161, "name": "South Sudan" },
+            { "value": 162, "name": "Spain" },
+            { "value": 163, "name": "Sri Lanka" },
+            { "value": 164, "name": "Sudan" },
+            { "value": 165, "name": "Suriname" },
+            { "value": 166, "name": "Sweden" },
+            { "value": 167, "name": "Switzerland" },
+            { "value": 168, "name": "Syria" },
+            { "value": 169, "name": "Tajikistan" },
+            { "value": 170, "name": "Tanzania" },
+            { "value": 171, "name": "Thailand" },
+            { "value": 172, "name": "Timor-Leste" },
+            { "value": 173, "name": "Togo" },
+            { "value": 174, "name": "Tonga" },
+            { "value": 175, "name": "Trinidad and Tobago" },
+            { "value": 176, "name": "Tunisia" },
+            { "value": 177, "name": "Turkey" },
+            { "value": 178, "name": "Turkmenistan" },
+            { "value": 179, "name": "Tuvalu" },
+            { "value": 180, "name": "Uganda" },
+            { "value": 181, "name": "Ukraine" },
+            { "value": 182, "name": "United Arab Emirates" },
+            { "value": 183, "name": "United Kingdom" },
+            { "value": 184, "name": "United States of America" },
+            { "value": 185, "name": "Uruguay" },
+            { "value": 186, "name": "Uzbekistan" },
+            { "value": 187, "name": "Vanuatu" },
+            { "value": 188, "name": "Venezuela" },
+            { "value": 189, "name": "Vietnam" },
+            { "value": 190, "name": "Yemen" },
+            { "value": 191, "name": "Zambia" },
+            { "value": 192, "name": "Zimbabwe" }
+        ]
+
     }
 }

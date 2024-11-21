@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { setTimeout as delay } from 'timers/promises';
+import logger from '../config/logger';
 
 import config from '../config/environment';
 import { sendEmail } from '../config/mail';
@@ -59,6 +60,7 @@ class PasswordController {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
+            logger.error(`PASSWORD: error caught at 'passwordReset': ${String(error)}`);
             res.status(500).json({ message: 'Internal Server Error' });
         }
     }
@@ -93,6 +95,7 @@ class PasswordController {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
+            logger.error(`PASSWORD: error caught at 'resetPassword': ${String(error)}`);
             res.status(500).json({ message: 'Internal Server Error' });
         }
     }

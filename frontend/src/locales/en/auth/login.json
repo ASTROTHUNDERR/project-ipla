@@ -1,0 +1,30 @@
+{
+    "header": "Authorization",
+    "input_fields": [
+        {
+            "header": "Email"
+        },
+        {
+            "header": "Password"
+        }
+    ],
+    "forgot_password": "Forgot your password?",
+    "submit_button": "Log in",
+    "divider": "OR",
+    "footer": {
+        "text": "Don't have an account?",
+        "button_text": "Register"
+    },
+    "helper_texts": {
+        "email": {
+            "error_texts": {
+                "invalid": "Invalid email or password."
+            }
+        },
+        "password": {
+            "error_texts": {
+                "invalid": "Invalid email or password."
+            }
+        }
+    }
+}

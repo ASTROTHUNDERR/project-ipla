@@ -92,7 +92,13 @@ input {
     background-color: inherit;
 }
 a {
+    color: inherit;
     text-decoration: none;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 ::selection {
     background-color: var(--primary-50);
@@ -231,4 +237,15 @@ a {
 }
 .helper-warning {
     color: var(--danger-500);
+}
+
+/*  */
+.navbar-secondary {
+    width: 100%;
+    height: 64px;
+    padding: 16px 25px;
+    background-color: #232222;
+    font-family: var(--font);
+    color: var(--primary-50);
+    z-index: 1;
 }

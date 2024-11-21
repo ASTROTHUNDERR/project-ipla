@@ -10,7 +10,7 @@ const refreshAndDataRateLimit = new RateLimit(15 * 60 * 1000, 50, 'Too many requ
 
 authRouter.post('/login', authRateLimit.apply(), AuthController.authorization);
 authRouter.post('/register', authRateLimit.apply(), AuthController.registration);
-authRouter.post('/finish_registration/check_username', refreshAndDataRateLimit.apply(), AuthController.finishRegistrationUsernameCheck);
+authRouter.post('/finish_registration/primary_data_check', refreshAndDataRateLimit.apply(), AuthController.finishRegistrationPrimaryDataCheck);
 authRouter.post('/finish_registration', refreshAndDataRateLimit.apply(), AuthController.finishRegistration);
 
 authRouter.post('/refresh_access_token', refreshAndDataRateLimit.apply(), authenticateToken.authenticateExpiredToken, AuthController.refreshAccessToken);

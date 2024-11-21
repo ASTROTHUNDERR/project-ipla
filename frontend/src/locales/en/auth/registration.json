@@ -1,0 +1,124 @@
+{
+    "registration": {
+        "intro": {
+            "header": "Create your account",
+            "cards": [
+                {
+                    "header": "Player",
+                    "description": "Join teams, showcase your skills and be discovered by top teams seeking talent.",
+                    "bullets": [
+                        {
+                            "content": "Highlight your skills and achievements."
+                        },
+                        {
+                            "content": "Teams can scout you in the transfer market."
+                        },
+                        {
+                            "content": "Get transfer opportunities as teams negotiate for you."
+                        }
+                    ],
+                    "button": "Register as a Player"
+                },
+                {
+                    "header": "Manager",
+                    "description": "Scout and recruit talented players, and assist team owners with transfers.",
+                    "bullets": [
+                        {
+                            "content": "Discover players and recommend them to team owners."
+                        },
+                        {
+                            "content": "Assist in negotiating deals between teams."
+                        },
+                        {
+                            "content": "Highlight your past achievements and teams managed."
+                        }
+                    ],
+                    "button": "Register as a Manager"
+                },
+                {
+                    "header": "Team Owner",
+                    "description": "Control your roster, negotiate transfers, and build a winning team.",
+                    "bullets": [
+                        {
+                            "content": "Oversee all player and manager positions."
+                        },
+                        {
+                            "content": "Directly negotiate and authorize player and manager transfers."
+                        },
+                        {
+                            "content": "Build a championship roster and elevate your team's performance."
+                        }
+                    ],
+                    "button": "Register as Team Owner"
+                }
+            ]
+        },
+        "form": {
+            "input_fields": {
+                "username": {
+                    "header": "Username"
+                },
+                "email": {
+                    "header": "Email"
+                },
+                "password": {
+                    "header": "Password"
+                },
+                "country": {
+                    "header": "Country",
+                    "placeholder": "Choose your Country"
+                },
+                "birth_date": {
+                    "header": "Date of Birth"
+                }
+            },
+            "submit_button": "Register",
+            "footer": {
+                "text": "Already have an account?",
+                "button_text": "Log in"
+            },
+            "helper_texts": {
+                "username": {
+                    "general": "Please use only letters, numbers and underscores (_).",
+                    "error_texts": {
+                        "length": "Username must be minimum 4 and maximum 14 characters long.",
+                        "in_use": "This username is already in use. Please choose another."
+                    }
+                },
+                "email": {
+                    "error_texts": {
+                        "invalid": "Invalid form of the email.",
+                        "in_use": "This email is already registered. Please choose another."
+                    }
+                },
+                "birth_date": {
+                    "error_texts": {
+                        "invalid": "The date you chose is invalid.",
+                        "unreal": "Invalid year. Please enter a realistic birth year."
+                    }
+                },
+                "country": {
+                    "error_texts": {
+                        "invalid": "Invalid country."
+                    }   
+                },
+                "password": {
+                    "general": "Minimum 8 characters is required.",
+                    "strong": "Password must contain at least one special character (.!@#$%&)."
+                }
+            }
+        }
+    },
+    "finish_registration": {
+        "header": "Finish Registration",
+        "description": "Choose one of the options from below to finish the registration.",
+        "input_field": {
+            "header": "Username"
+        },
+        "buttons": {
+            "cancel": "Cancel",
+            "next": "Next",
+            "submit": "Submit"
+        }
+    }
+}

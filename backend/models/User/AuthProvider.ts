@@ -46,7 +46,6 @@ AuthProvider.init(
 class AuthHold extends Model {
     declare id: number;
     declare token: string;
-    declare username: string;
     declare email: string;
     declare provider: string;
     declare provider_user_id: string;
@@ -60,11 +59,6 @@ AuthHold.init(
             autoIncrement: true
         },
         token: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            unique: true
-        },
-        username: {
             type: DataTypes.STRING,
             allowNull: true,
             unique: true

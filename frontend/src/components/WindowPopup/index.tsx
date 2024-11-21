@@ -11,6 +11,7 @@ const WindowCSSProperties: React.CSSProperties = {
 }
 
 type Props = {
+    width: number;
     header: string;
     description: string | React.ReactNode;
     cancelButton?: boolean;
@@ -20,6 +21,7 @@ type Props = {
 }
  
 export default function WindowPopup({
+    width,
     header,
     description,
     cancelButton,
@@ -29,7 +31,7 @@ export default function WindowPopup({
 }: Props) {
     return (
         <div className='z-1 absolute flex items-center content-center' style={WindowCSSProperties}>
-            <div className={`${styles['window']} flex column`}>
+            <div className={`${styles['window']} flex column`} style={{ width }}>
                 <header className={styles['header']}>
                     {header}
                 </header>

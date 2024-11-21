@@ -14,16 +14,16 @@
     color: var(--secondary-50);
     border: 1px solid var(--primary-500);
 }
-.helper-wrapper {
+.field-helper-wrapper {
     overflow: hidden;
     height: 0;
     margin-top: 2px;
 }
-.helper-wrapper.error {
+.field-helper-wrapper.error {
     height: auto !important;
     opacity: 1 !important;
 }
-.helper {
+.field-helper {
     overflow: hidden;
     font-size: 12px;
     line-height: 16px;

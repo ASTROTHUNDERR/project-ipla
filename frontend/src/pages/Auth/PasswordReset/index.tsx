@@ -14,7 +14,7 @@ import InputField from '../../../components/InputField';
 import WindowPopup from '../../../components/WindowPopup';
 
 export default function PasswordReset() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('passwordReset');
     const navigate = useNavigate();
     const { postRequest, loading } = useApi();
 
@@ -30,7 +30,7 @@ export default function PasswordReset() {
         const request = await postRequest('/pass/password_reset', data);
         if (request.error) {
             setHelperMessages({
-                email: { text: t('auth.password_reset.helper_texts.email.invalid'), danger: true }
+                email: { text: t('helper_texts.email.invalid'), danger: true }
             })
         } else {
             setPopupState(true);
@@ -42,10 +42,11 @@ export default function PasswordReset() {
         <div className='auth-component relative flex column'>
             {popupState && userEmail && (
                 <WindowPopup
-                    header={t('auth.password_reset.window_popup.header')}
+                    width={400}
+                    header={t('window_popup.header')}
                     description={
                         <span>
-                            <Trans i18nKey={'auth.password_reset.window_popup.description'} values={{ email: userEmail }}>
+                            <Trans ns='passwordReset' i18nKey={'window_popup.description'} values={{ email: userEmail }}>
                                 <strong />
                             </Trans>
                         </span>
@@ -58,12 +59,12 @@ export default function PasswordReset() {
                 <section className='auth-content-wrapper flex items-center content-center column'>
                     <div className='auth-login-content'>
                         <div className='auth-content-title-wrapper flex content-center text-center'>
-                            <h1 className='auth-title'>{t('auth.password_reset.header')}</h1>
+                            <h1 className='auth-title'>{t('header')}</h1>
                         </div>
                         <form className='auth-login-form flex column' onSubmit={handleSubmit(onSubmit)}>
                             <InputField 
                                 required
-                                headText={t('auth.password_reset.input_fields.email.header')}
+                                headText={t('input_fields.email.header')}
                                 inputType='email'
                                 inputName='email'
                                 helperMessage={helperMessages?.['email']}
@@ -71,13 +72,13 @@ export default function PasswordReset() {
                             />
                             <SubmitButton 
                                 isLoading={loading}
-                                innerElement={t('auth.password_reset.submit_button')}
+                                innerElement={t('submit_button')}
                                 className='auth-submit-btn margin-top-30'
                             />
                         </form>
                         <div className='auth-helper-wrapper bottom'>
-                            <span>{t('auth.password_reset.footer.text')}</span>
-                            <a href="/login">{t('auth.password_reset.footer.button_text')}</a>
+                            <span>{t('footer.text')}</span>
+                            <a href="/login">{t('footer.button_text')}</a>
                         </div>
                     </div>
                 </section>

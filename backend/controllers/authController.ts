@@ -1,11 +1,17 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { z } from 'zod';
+import logger from '../config/logger';
 
 import { User, UserRole, AuthHold, AuthProvider } from '../models';
 import { AuthenticatedRequest } from '../utils/types';
-import { generateAccessToken, generateRefreshToken } from '../utils/tokenUtils';
-
+import { 
+    generateAccessToken, 
+    generateRefreshToken, 
+    checkBirthDate, 
+    loadCountriesInLanguage, 
+    checkCountry
+} from '../utils/authUtils';
 
 class AuthSchemas {
     static authorizationSchema = z.object({
@@ -14,21 +20,35 @@ class AuthSchemas {
     });
 
     static registrationSchema = z.object({
+        type: z.enum(['player', 'manager', 'team owner']),
         username: z.string()
             .min(4)
             .max(14)
             .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
         email: z.string().email(),
-        password: z.string().min(8),
-        type: z.enum(['player', 'manager', 'team owner'])
+        password: z.string()
+            .min(8)
+            .regex(/[.!@#$%&]/, 'Password must contain at least one special character (.!@#$%&)'),
+        birthDate: z.string(),
+        country: z.object({ 
+            locale: z.enum(['en', 'ka']),
+            value: z.string(), 
+            content: z.string()
+        }, { message: 'Invalid country' })
     });
 
-    static finishRegistrationUsernameCheck = z.object({
+    static finishRegistrationPrimaryDataCheck = z.object({
         token: z.string(),
         username: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+        birthDate: z.string(),
+        country: z.object({ 
+            locale: z.enum(['en', 'ka']),
+            value: z.string(), 
+            content: z.string()
+        }, { message: 'Invalid country' })
     });
 
     static finishRegistration = z.object({
@@ -37,6 +57,12 @@ class AuthSchemas {
             .min(4)
             .max(14)
             .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+        birthDate: z.string(),
+        country: z.object({ 
+            locale: z.enum(['en', 'ka']),
+            value: z.string(), 
+            content: z.string()
+        }, { message: 'Invalid country' }),
         registrationType: z.enum(['player', 'manager', 'team owner'])
     });
 }
@@ -49,7 +75,7 @@ class AuthController {
             
             const user = await User.findOne({ where: { email } });
             if (!user) {
-                res.status(404).send({ message: 'Invalid email or password' });
+                res.status(404).send({ errorMessage: 'Invalid email or password' });
                 return;
             }
 
@@ -65,35 +91,58 @@ class AuthController {
                 return;
             }
 
-            res.status(400).send({ message: 'Invalid email or password' });
+            res.status(400).send({ errorMessage: 'Invalid email or password' });
             return;
         } catch (error) {
             if (error instanceof z.ZodError) {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
-            res.status(500).json({ message: 'Internal Server Error' });
+            logger.error(`AUTH: error caught at 'authorization': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
     static async registration(req: Request, res: Response) {
         try {
             const validatedData = AuthSchemas.registrationSchema.parse(req.body);
-            const { username, email, password, type } = validatedData;
+            const { type, username, email, password, birthDate, country } = validatedData;
 
             const usernameIsUsed = await User.findOne({ where: { username } });
             if (usernameIsUsed) {
-                res.status(400).json({ message: 'This username is already used' });
+                res.status(400).json({ errorMessage: 'This username is already used' });
                 return;
             }
 
             const emailIsUsed = await User.findOne({ where: { email } });
             if (emailIsUsed) {
-                res.status(400).json({ message: 'This email is already used' });
+                res.status(400).json({ errorMessage: 'This email is already used' });
                 return;
             }
 
-            await User.create({ username: username, email: email, password: password, type: type });
+            const birthDateIsValid = checkBirthDate(new Date(birthDate));
+
+            if (!birthDateIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid birth date.' });
+                return;
+            }
+
+            await loadCountriesInLanguage(country.locale);
+            const countryIsValid = await checkCountry(country);
+            
+            if (!countryIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid country.' });
+                return;
+            }
+
+            await User.create({ 
+                username: username, 
+                email: email, 
+                password: password, 
+                birthDate: new Date(birthDate), 
+                country: country.value,
+                type: type
+            });
 
             res.status(201).json({ message: 'User registered successfully' });
             return;
@@ -102,59 +151,93 @@ class AuthController {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
-            res.status(500).json({ message: 'Internal Server Error' });
+            logger.error(`AUTH: error caught at 'registration': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
-    static async finishRegistrationUsernameCheck(req: Request, res: Response) {
+    static async finishRegistrationPrimaryDataCheck(req: Request, res: Response) {
         try {
-            const validatedData = AuthSchemas.finishRegistrationUsernameCheck.parse(req.body);
-            const { token, username } = validatedData;
+            const validatedData = AuthSchemas.finishRegistrationPrimaryDataCheck.parse(req.body);
+            const { token, username, birthDate, country } = validatedData;
 
             const authHold = await AuthHold.findOne({ where: { token } });
             if (!authHold) {
-                res.status(404).json({ message: 'Invalid token' });
+                res.status(404).json({ errorMessage: 'Invalid token' });
                 return;
             }
 
             const usernameIsUsed = await User.findOne({ where: { username } });
             if (usernameIsUsed) {
-                res.status(400).json({ message: 'This username is already used' });
+                res.status(400).json({ errorMessage: 'This username is already used' });
                 return;
             }
 
-            res.status(201).json({ message: 'Username is valid.' });
+            const birthDateIsValid = checkBirthDate(new Date(birthDate));
+
+            if (!birthDateIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid birth date.' });
+                return;
+            }
+
+            await loadCountriesInLanguage(country.locale);
+            const countryIsValid = await checkCountry(country);
+            
+            if (!countryIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid country.' });
+                return;
+            }
+
+            res.status(201).json({ message: 'Data is valid.' });
             return;
         } catch (error) {
             if (error instanceof z.ZodError) {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
-            res.status(500).json({ message: 'Internal Server Error' });
+            logger.error(`AUTH: error caught at 'finishRegistrationPrimaryDataCheck': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
     static async finishRegistration(req: Request, res: Response) {
         try {
             const validatedData = AuthSchemas.finishRegistration.parse(req.body);
-            const { token, username, registrationType } = validatedData;
+            const { token, username, birthDate, country, registrationType } = validatedData;
 
             const authHold = await AuthHold.findOne({ where: { token } });
             if (!authHold) {
-                res.status(404).json({ message: 'Invalid token' });
+                res.status(404).json({ errorMessage: 'Invalid token' });
                 return;
             }
 
             const usernameIsUsed = await User.findOne({ where: { username } });
             if (usernameIsUsed) {
-                res.status(400).json({ message: 'This username is already used' });
+                res.status(400).json({ errorMessage: 'This username is already used' });
+                return;
+            }
+
+            const birthDateIsValid = checkBirthDate(new Date(birthDate));
+
+            if (!birthDateIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid birth date.' });
+                return;
+            }
+            
+            await loadCountriesInLanguage(country.locale);
+            const countryIsValid = await checkCountry(country);
+            
+            if (!countryIsValid) {
+                res.status(400).json({ errorMessage: 'Invalid country.' });
                 return;
             }
 
             const user = await User.create({
                 username: username,
                 email: authHold.email,
-                type: registrationType
+                birthDate: new Date(birthDate),
+                country: country.value,
+                type: registrationType.replace(' ', '_')
             });
             
             await UserRole.create({
@@ -177,7 +260,8 @@ class AuthController {
                 res.status(400).json({ errors: error.errors });
                 return;
             }
-            res.status(500).json({ message: 'Internal Server Error' });
+            logger.error(`AUTH: error caught at 'finishRegistration': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
@@ -188,8 +272,9 @@ class AuthController {
 
                 res.status(200).json({ accessToken: accessToken });
             }
-        } catch (err) {
-            res.status(500).json({ message: 'Internal Server Error' });
+        } catch (error) {
+            logger.error(`AUTH: error caught at 'refreshAccessToken': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
@@ -199,8 +284,9 @@ class AuthController {
                 const userData = await User.getUserData(req.currentUser.id);
                 res.send(userData);
             }
-        } catch (err) {
-            res.status(500).json({ message: 'Internal Server Error' });
+        } catch (error) {
+            logger.error(`AUTH: error caught at 'getUserData': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 

@@ -1,7 +1,12 @@
 import { User, Role, UserRole } from '../models';
 
 const USER = {
-    username: 'vision', email: 'giorgi@gmail.com',  password: 'merebagio', type: 'player'
+    username: 'vision',
+    email: 'giorgi@gmail.com',  
+    password: 'merebagio', 
+    birthDate: new Date(),
+    country: 'Georgia',
+    type: 'player'
 }
 
 const ROLES = [

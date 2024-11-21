@@ -17,7 +17,7 @@ import GoogleLoginButton from '../../../components/GoogleLoginButton';
 import DiscordLoginButton from '../../../components/DiscordLoginButton';
 
 function Login() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('login');
     const { postRequest, loading } = useApi();
     const { refreshUser } = useAuth();
 
@@ -26,11 +26,11 @@ function Login() {
     });
 
     const [helperMessages, setHelperMessages] = useState<HelperMessages | undefined>({
-        email: { text: t('auth.login.helper_texts.email.error_texts.invalid'), danger: false },
-        password: { text: t('auth.login.helper_texts.password.error_texts.invalid'), danger: false }
+        email: { text: t('helper_texts.email.error_texts.invalid'), danger: false },
+        password: { text: t('helper_texts.password.error_texts.invalid'), danger: false }
     });
 
-    const inputFields: { header: string }[] = t('auth.login.input_fields', { returnObjects: true }) as { header: string }[];
+    const inputFields: { header: string }[] = t('input_fields', { returnObjects: true }) as { header: string }[];
     const filteredInputFields = inputFields.map(field => {
         const fieldName = field.header.toLowerCase();
         const inputType = (fieldName === 'email' || fieldName === 'ელფოსტა') ? 'email' : 'password';
@@ -53,8 +53,8 @@ function Login() {
         const request = await postRequest('/auth/login', data);
         if (request.error) {
             setHelperMessages({
-                email: { text: t('auth.login.helper_texts.email.error_texts.invalid'), danger: true },
-                password: { text: t('auth.login.helper_texts.password.error_texts.invalid'), danger: true }
+                email: { text: t('helper_texts.email.error_texts.invalid'), danger: true },
+                password: { text: t('helper_texts.password.error_texts.invalid'), danger: true }
             })
         } else {
             setHelperMessages(undefined);
@@ -69,7 +69,7 @@ function Login() {
                 <section className='auth-content-wrapper flex items-center content-center column'>
                     <div className='auth-login-content'>
                         <div className='auth-content-title-wrapper flex content-center'>
-                            <h1 className='auth-title'>{t('auth.login.header')}</h1>
+                            <h1 className='auth-title'>{t('header')}</h1>
                         </div>
                         <form className='auth-login-form flex column' onSubmit={handleSubmit(onSubmit)}>
                             {filteredInputFields.map((field, index) => (
@@ -85,17 +85,17 @@ function Login() {
                                 />
                             ))}
                             <div className='auth-helper-wrapper top'>
-                                <a href="/password-reset">{t('auth.login.forgot_password')}</a>
+                                <a href="/password-reset">{t('forgot_password')}</a>
                             </div>
                             <SubmitButton 
                                 isLoading={loading}
-                                innerElement={t('auth.login.submit_button')}
+                                innerElement={t('submit_button')}
                                 className='auth-submit-btn margin-top-25'
                             />
                         </form>
                         <div className='auth-divider flex items-center'>
                             <div className='auth-divider-line'></div>
-                            <span className='auth-divider-text flex content-center'>{t('auth.login.divider')}</span>
+                            <span className='auth-divider-text flex content-center'>{t('divider')}</span>
                             <div className='auth-divider-line'></div>
                         </div>
                         <div className='auth-signin-options flex column'>
@@ -103,8 +103,8 @@ function Login() {
                             <DiscordLoginButton />
                         </div>
                         <div className='auth-helper-wrapper bottom'>
-                            <span>{t('auth.login.footer.text')}</span>
-                            <a href="/register">{t('auth.login.footer.button_text')}</a>
+                            <span>{t('footer.text')}</span>
+                            <a href="/register">{t('footer.button_text')}</a>
                         </div>
                     </div>
                 </section>
