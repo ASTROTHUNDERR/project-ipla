@@ -1,0 +1,19 @@
+{
+    "banner": {
+        "header": "Banner",
+        "remove_button": "Remove Banner",
+        "upload_button": "Upload Banner"
+    },
+    "avatar": {
+        "header": "Avatar",
+        "remove_button": "Remove Avatar",
+        "upload_button": "Upload Avatar"
+    },
+    "about": {
+        "header": "About"
+    },
+    "socials": {
+        "header": "Socials",
+        "socials_to_add_header": "Socials you can add"
+    }
+}

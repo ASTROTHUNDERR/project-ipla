@@ -5,7 +5,7 @@
     background-color: transparent;
     font-family: var(--font);
     color: var(--primary-50);
-    border-bottom: 1px solid var(--primary-500);
+    background-color: #232222;
     z-index: 1;
 }
 .head-text {
@@ -22,7 +22,4 @@
     height: 32px;
     border-radius: 50%;
     background-color: var(--secondary-300);
-}
-.user-avatar-wrapper svg {
-    stroke: var(--secondary-50) !important;
 }

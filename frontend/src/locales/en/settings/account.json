@@ -1,0 +1,100 @@
+{
+    "profile_card": {
+        "button_text": "Edit Profile"
+    },
+    "extra_cards": {
+        "username": "Username",
+        "email": "Email"
+    },
+    "fields": {
+        "password": {
+            "header": "Password",
+            "button_text": "Change Password"
+        },
+        "authenticator_app": {
+            "header": "Authenticator App",
+            "description": "An authenticator app adds extra security to your account by generating a unique, time-sensitive code you enter along with your password during login, making it harder for unauthorized access.",
+            "submit_button_text": "Add Authenticator App",
+            "remove_button_text": "Remove Authenticator App"
+        },
+        "account_deletion": {
+            "header": "Account Deletion",
+            "description": "This process can not be undone.",
+            "button_text": "Delete Account"
+        }
+    },
+    "popups": {
+        "password_change": {
+            "header": "Password Change",
+            "fields": {
+                "current_password": {
+                    "header": "Current Password"
+                },
+                "new_password": {
+                    "header": "New Password"
+                },
+                "repeat_new_password": {
+                    "header": "Repeat New Password"
+                }
+            }
+        },
+        "username_change": {
+            "header": "Username Change",
+            "fields": {
+                "new_username": {
+                    "header": "New Username"
+                }
+            }
+        },
+        "email_change": {
+            "header": "Email Change",
+            "first_step": {
+                "description": "An email will be sent to your current address <0>{{current_email}}</0> containing a link to confirm this process, allowing you to continue.",
+                "email_was_sent": "An email was sent to your current address <0>{{current_email}}</0>.",
+                "submit_button_text": "Send Email"
+            },
+            "second_step": {
+                "new_email_field": {
+                    "header": "New Email"
+                }
+            },
+            "third_step": {
+                "description": "An email was sent to your new address <0>{{new_email}}</0> containing a link to confirm this process, allowing you to change the email."
+            }
+        },
+        "add_two_factor_auth_app": {
+            "header": "Add Authenticator App",
+            "qr_code": {
+                "qrcode_header": "Scan in your authenticator app",
+                "manual_key_header": "If you can't scan the code use this key",
+                "fields": {
+                    "token": {
+                        "header": "Enter 6 digit code",
+                        "submit_button": "Submit"
+                    }
+                },
+                "helper_texts": {
+                    "token": {
+                        "general": "The code you enter is invalid.",
+                        "invalid_data": "Invalid data was provided."
+                    }
+                }
+            }
+        },
+        "remove_two_factor_auth_app": {
+            "header": "Remove Authenticator App",
+            "description": "Make sure you know what you are doing. By doing that your account becomes less secure."
+        },
+        "account_deletion": {
+            "header": "Account Deletion",
+            "support": "support",
+            "first_description": "Are you sure you want to delete your account? Even if you delete your account, you will have 30 days to recover it by reaching out to our <0>{{support}}</0> team.",
+            "second_description": "Are you sure you want to delete your account?",
+            "submit_button_text": "Delete Account"
+        }
+    },
+    "helper_texts": {
+        "invalid_password": "Invalid password.",
+        "different_password": "Try different password"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "auth": {
+        "languages": [
+            {
+                "code": "en",
+                "name": "English"
+            },
+            {
+                "code": "ka",
+                "name": "Georgian"
+            }
+        ]
+    }
+}

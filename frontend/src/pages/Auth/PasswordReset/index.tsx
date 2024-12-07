@@ -1,7 +1,7 @@
 import '../index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation, Trans as Translate } from 'react-i18next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useApi } from '../../../context/ApiProvider';
@@ -14,7 +14,7 @@ import InputField from '../../../components/InputField';
 import WindowPopup from '../../../components/WindowPopup';
 
 export default function PasswordReset() {
-    const { t } = useTranslation('passwordReset');
+    const { t } = useTranslation('auth');
     const navigate = useNavigate();
     const { postRequest, loading } = useApi();
 
@@ -30,7 +30,7 @@ export default function PasswordReset() {
         const request = await postRequest('/pass/password_reset', data);
         if (request.error) {
             setHelperMessages({
-                email: { text: t('helper_texts.email.invalid'), danger: true }
+                email: { text: t('passwordReset.helper_texts.email.invalid'), danger: true }
             })
         } else {
             setPopupState(true);
@@ -43,42 +43,46 @@ export default function PasswordReset() {
             {popupState && userEmail && (
                 <WindowPopup
                     width={400}
-                    header={t('window_popup.header')}
-                    description={
+                    header={t('passwordReset.window_popup.header')}
+                    content={
                         <span>
-                            <Trans ns='passwordReset' i18nKey={'window_popup.description'} values={{ email: userEmail }}>
+                            <Translate ns='auth' i18nKey={'passwordReset.window_popup.description'} values={{ email: userEmail }}>
                                 <strong />
-                            </Trans>
+                            </Translate>
                         </span>
                     }
                     submitButtonInnerElement='Okay'
-                    submitBtnOnClick={() => navigate('/login')}
+                    onFormSubmit={(e) => {
+                        e.preventDefault();
+                        navigate('/login'); 
+                    }}
                 />
             )}
             <main className='auth-content flex items-center content-center'>
                 <section className='auth-content-wrapper flex items-center content-center column'>
                     <div className='auth-login-content'>
                         <div className='auth-content-title-wrapper flex content-center text-center'>
-                            <h1 className='auth-title'>{t('header')}</h1>
+                            <h1 className='auth-title'>{t('passwordReset.header')}</h1>
                         </div>
                         <form className='auth-login-form flex column' onSubmit={handleSubmit(onSubmit)}>
                             <InputField 
                                 required
-                                headText={t('input_fields.email.header')}
+                                headText={t('passwordReset.input_fields.email.header')}
                                 inputType='email'
                                 inputName='email'
+                                inputId='email'
                                 helperMessage={helperMessages?.['email']}
                                 register={register}
                             />
                             <SubmitButton 
                                 isLoading={loading}
-                                innerElement={t('submit_button')}
+                                innerElement={t('passwordReset.submit_button')}
                                 className='auth-submit-btn margin-top-30'
                             />
                         </form>
                         <div className='auth-helper-wrapper bottom'>
-                            <span>{t('footer.text')}</span>
-                            <a href="/login">{t('footer.button_text')}</a>
+                            <span>{t('passwordReset.footer.text')}</span>
+                            <a href="/login">{t('passwordReset.footer.button_text')}</a>
                         </div>
                     </div>
                 </section>

@@ -55,6 +55,15 @@
         },
         "form": {
             "input_fields": {
+                "first_name": {
+                    "header": "First Name"
+                },
+                "last_name": {
+                    "header": "Last Name"
+                },
+                "native_name": {
+                    "header": "Name in Native Language"
+                },
                 "username": {
                     "header": "Username"
                 },
@@ -78,6 +87,21 @@
                 "button_text": "Log in"
             },
             "helper_texts": {
+                "first_name": {
+                    "general": "Enter your first name in English.",
+                    "error_texts": {
+                        "invalid": "First name is invalid."
+                    }
+                },
+                "last_name": {
+                    "general": "Enter your last name in English.",
+                    "error_texts": {
+                        "invalid": "Last name is invalid."
+                    }
+                },
+                "native_name": {
+                    "general": "Enter your name in your language."
+                },
                 "username": {
                     "general": "Please use only letters, numbers and underscores (_).",
                     "error_texts": {

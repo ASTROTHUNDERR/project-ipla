@@ -1,4 +1,4 @@
-import { sequelize } from '../models';
+import { sequelize } from '../db/models';
 
 async function initDb() {
     try {

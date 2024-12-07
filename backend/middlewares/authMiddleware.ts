@@ -1,9 +1,26 @@
+import xss from 'xss';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit';
 import { Request, Response, NextFunction } from 'express';
 
-import { User, Role} from '../models';
+import { User, Role} from '../db/models';
 import { AuthenticatedRequest, UserAuthorization } from '../utils/types';
+
+export const sanitizeMiddleware = (req: Request | AuthenticatedRequest, res: Response, next: NextFunction) => {
+    const sanitizeObject = (obj: any) => {
+        if (typeof obj === "object" && obj !== null) {
+            for (const key in obj) {
+                obj[key] = sanitizeObject(obj[key]);
+            }
+        } else if (typeof obj === "string") {
+            return xss(obj);
+        }
+        return obj;
+    };
+
+    req.body = sanitizeObject(req.body);
+    next();
+};
 
 class AuthenticateToken {
     constructor() {

@@ -1,0 +1,16 @@
+{
+    "options": {
+        "view_profile": "პროფილის ნახვა",
+        "your_teams": "შენი გუნდები",
+        "your_wallet": "შენი საფულე",
+        "account_settings": "ანგარიშის პარამეტრები",
+        "profile_settings": "პროფილის პარამეტრები",
+        "game_settings": "თამაშის პარამეტრები",
+        "language": "ენა",
+        "support": "მხარდაჭერა",
+        "logout": "გასვლა"
+    },
+    "language_popup": {
+        "header": "შეცვალე ენა"
+    }
+}

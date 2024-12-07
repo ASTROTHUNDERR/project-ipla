@@ -96,19 +96,22 @@ export function handleInputOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     // helperWrapper?.classList.add(styles['helper-wrapper-collapse']);
 };
 
-export function handleUsernameInput(
+export function handleRegexInput(
     event: React.FormEvent<HTMLInputElement>, 
-    text: string,
+    regex: RegExp,
+    fieldName: string,
+    validationMessage: string,
     setHelperMessages: (value: React.SetStateAction<HelperMessages>) => void
 ) {
     const value = event.currentTarget.value;
-    const isValid = /^[a-zA-Z0-9_]*$/.test(value); 
+    const isValid = (regex).test(value); 
     
     if (!isValid) {
         setHelperMessages(prev => ({
             ...prev,
-            username: {
-                text: text, danger: true
+            [fieldName]: {
+                text: validationMessage,
+                danger: true
             }
         }))
         event.preventDefault();
@@ -116,8 +119,9 @@ export function handleUsernameInput(
     }
     setHelperMessages(prev => ({
         ...prev,
-        username: {
-            text: text, danger: false
+        [fieldName]: {
+            text: validationMessage,
+            danger: false
         }
     }))
     return false;
@@ -183,4 +187,33 @@ export function validateBirthDate(
             return;
         }
     }
+};
+
+export function formatDateInString(inputString: string): string {
+    const dateRegex = /([A-Za-z]{3} \w{3} \d{2} \d{4} \d{2}:\d{2}:\d{2} GMT[+-]\d{4} \([\w\s]+\))/;
+  
+    const match = inputString.match(dateRegex);
+  
+    if (match) {
+      const date = new Date(match[0]);
+  
+      if (!isNaN(date.getTime())) {
+        const options: Intl.DateTimeFormatOptions = {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZoneName: 'short',
+        };
+  
+        const formattedDate = date.toLocaleDateString('en-US', options);
+  
+        return inputString.replace(dateRegex, formattedDate);
+      }
+    }
+  
+    return inputString;
 };

@@ -1,0 +1,36 @@
+.about-field {
+    width: 415px;
+    height: 195px;
+}
+.letters-limit {
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    font-size: 12px;
+    color: var(--secondary-200);
+}
+.text-area {
+    height: 100%;
+    padding: 10px 30px 10px 10px;
+    border-radius: 6px;
+    outline: none;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--secondary-50);
+    resize: none;
+    background-color: var(--secondary-600);
+    border: 1px solid var(--secondary-50);
+}
+.text-area::-webkit-scrollbar {
+    width: 4px;
+}
+.text-area::-webkit-scrollbar-thumb {
+    background-color: var(--primary-500);
+    border-radius: 6px;
+}
+
+@media (max-width: 1000px) {
+    .about-field {
+        width: 100%;
+    }
+}

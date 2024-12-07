@@ -12,11 +12,11 @@ interface Language {
 }
 
 export default function UnauthorizedNavbar() {
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation('footers');
     const [languagePickerState, setLanguagePickerState] = useState(false);
     const [currentLanguage, setCurrentLanguage] = useState<string | null>(null);
 
-    const languageNames: Language[] = t('footers.auth.languages', { returnObjects: true }) as Language[];
+    const languageNames: Language[] = t('auth.languages', { returnObjects: true }) as Language[];
     const currentLanguageName = languageNames.find(lang => lang.code === currentLanguage)?.name || currentLanguage;
     const filteredLanguages = languageNames.filter(lang => lang.code !== currentLanguage);
 

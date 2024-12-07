@@ -26,5 +26,16 @@
                 "invalid": "Invalid email or password."
             }
         }
+    },
+    "2fa": {
+        "header": "Multi-Factor Authentication",
+        "field": {
+            "header": "Enter Auth Code",
+            "placeholder": "6-digit authentication code",
+            "submit_button_text": "Confirm"
+        }
+    },
+    "is_deleted": {
+        "header": "Account Is Marked As Deleted"
     }
 }

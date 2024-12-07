@@ -1,0 +1,53 @@
+.wrapper {
+    width: 415px;
+    padding: 0;
+}
+.header {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary-100);
+}
+.content {
+    font-size: 16px;
+    color: var(--primary-50);
+    margin-top: 6px;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.button {
+    background-color: var(--additional-500);
+}
+.button:hover {
+    background-color: var(--additional-400);
+}
+.button svg path {
+    stroke: var(--secondary-50) !important;
+}
+.input {
+    padding: 6px 8px;
+    margin-top: 6px;
+    font-size: 16px;
+    color: var(--primary-50);
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid var(--primary-500);
+}
+.button,
+.provider-btn {
+    width: 64px;
+    height: 100%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px
+}
+.provider-btn {
+    background-color: var(--secondary-50);
+}
+
+
+@media (max-width: 1000px) {
+    .wrapper {
+        width: 100%;
+    }
+}

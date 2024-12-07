@@ -9,7 +9,7 @@ import config from '../config/environment';
 import { sendEmail } from '../config/mail';
 import { compileHTMLFile } from '../utils/emailUtils';
 
-import { User, PasswordReset } from '../models';
+import { User, PasswordReset, AuthProvider } from '../db/models';
 
 class Schemas {
     static passwordReset = z.object({
@@ -18,8 +18,12 @@ class Schemas {
 
     static resetPassword = z.object({
         token: z.string(),
-        newPassword: z.string().min(8),
-        repeatNewPassword: z.string().min(8)
+        newPassword: z.string()
+            .min(8)
+            .regex(/[.!@#$%&]/, 'Password must contain at least one special character (.!@#$%&)'),
+        repeatNewPassword: z.string()
+            .min(8)
+            .regex(/[.!@#$%&]/, 'Password must contain at least one special character (.!@#$%&)')
     }).refine((data) => data.newPassword === data.repeatNewPassword, {
         message: 'Passwords must match'
     });
@@ -33,7 +37,16 @@ class PasswordController {
 
             const user = await User.findOne({ where: { email } });
 
+            const emailSendDuration = 2324;
             if (user) {
+                const hasProvider = await AuthProvider.findOne({ where: { user_id: user.id} });
+                if (hasProvider) {
+                    await delay(emailSendDuration);
+
+                    res.status(200).json({ message: 'Email was sent successfully' });
+                    return;
+                }
+
                 const resetToken = crypto.randomBytes(64).toString('hex');
 
                 const resetLink = `${config.allowedOrigin}/reset-password?token=${resetToken}`
@@ -50,7 +63,6 @@ class PasswordController {
                 res.status(200).json({ message: 'Email was sent successfully' });
                 return;
             }
-            const emailSendDuration = 2324;
             await delay(emailSendDuration);
 
             res.status(200).json({ message: 'Email was sent successfully' });

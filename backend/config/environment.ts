@@ -37,11 +37,11 @@ const config: Config = {
     port: parseInt(process.env.PORT || '3011', 10),
     database: {
         url: process.env.DATABASE_URL || 'mysql://localhost:3306/ipla',
-        username: process.env.DB_USERNAME || '',
-        password: process.env.DB_PASSWORD || '',
-        host: process.env.DB_HOST || 'localhost',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        dbName: process.env.DB_NAME || 'ipla',
+        username: process.env.DEV_DB_USERNAME || '',
+        password: process.env.DEV_DB_PASSWORD || '',
+        host: process.env.DEV_DB_HOST || 'localhost',
+        port: parseInt(process.env.DEV_DB_PORT || '3306', 10),
+        dbName: process.env.DEV_DB_NAME || 'ipla',
     },
     jwtSecret: process.env.JWT_SECRET || 'jwt_secret',
     api: {

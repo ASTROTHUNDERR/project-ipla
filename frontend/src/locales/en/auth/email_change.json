@@ -1,0 +1,12 @@
+{
+    "email_change_verification": {
+        "header": "Email Change Verification",
+        "content": "You have successfully verified the email change.",
+        "navigate_button": "Navigate to Home page"
+    },
+    "new_email_verification": {
+        "header": "Email Was Changed",
+        "content": "Email was successfully changed.",
+        "navigate_button": "Navigate to Home page"
+    }
+}

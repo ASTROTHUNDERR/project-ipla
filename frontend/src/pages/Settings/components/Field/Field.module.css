@@ -1,0 +1,49 @@
+.field-wrapper {
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--primary-500);
+}
+.field-wrapper.danger {
+    border: 1px solid var(--danger-500);
+}
+.header {
+    left: 14px;
+    top: -8.5px;
+    padding: 0 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary-100);
+    background-color: var(--secondary-500);
+}
+.description {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: var(--secondary-200);
+}
+.button {
+    width: fit-content;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    color: var(--secondary-50);
+}
+.button.primary {
+    background-color: var(--primary-500);
+}
+.button.primary:hover {
+    background-color: var(--primary-400);
+}
+.button.danger {
+    background-color: var(--danger-500);
+}
+.button.danger:hover {
+    background-color: var(--danger-400);
+}
+.button.danger-secondary {
+    background-color: transparent !important;
+    border: 1px solid var(--danger-500);
+}
+.button.danger-secondary:hover {
+    background-color: var(--danger-500) !important;
+}

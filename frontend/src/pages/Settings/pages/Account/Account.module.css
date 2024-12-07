@@ -1,0 +1,9 @@
+@media (max-width: 1000px) {
+    .upper-wrapper {
+        gap: 30px;
+        flex-direction: column;
+    }
+    .upper-right-wrapper {
+        gap: 15px;
+    }
+}

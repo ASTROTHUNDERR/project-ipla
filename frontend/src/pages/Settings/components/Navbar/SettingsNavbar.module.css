@@ -1,0 +1,31 @@
+.navbar {
+    width: 100%;
+    height: 45px;
+    box-sizing: content-box;
+    padding-bottom: 25px;
+    overflow-x: auto;
+}
+.navbar::-webkit-scrollbar {
+    height: 6px;
+}
+.navbar::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: var(--primary-500);
+}
+
+.tab {
+    padding: 12px 25px;
+    color: var(--secondary-50);
+    font-size: 16px;
+    font-weight: 500;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    user-select: none;
+    cursor: pointer;
+}
+.tab.selected {
+    border-bottom: 2px solid var(--primary-500);
+}
+.tab:hover {
+    background-color: #2b2828;
+}

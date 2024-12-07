@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import countries from 'i18n-iso-countries';
 
-import type { User } from '../models';
+import type { User } from '../db/models';
 
 export function generateAccessToken(user: User) {
     return jwt.sign(

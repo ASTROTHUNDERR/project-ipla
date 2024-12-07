@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { User } from '../models';
+import { User } from '../db/models';
 
 export interface AuthenticatedRequest extends Request {
     currentUser?: User;
@@ -13,10 +13,17 @@ export interface UserAuthorization {
 };
 
 export interface UserData {
-    id: number,
-    username: string,
-    email: string,
+    id: number;
+    first_name: string;
+    last_name: string;
+    native_name?: string;
+    username: string;
+    email: string;
+    birthDate: Date;
+    country: string;
     roles: {
-        name: string,
-    }[]
+        name: string;
+    }[];
+    tfa_enabled: boolean;
+    is_deleted: boolean;
 };

@@ -1,0 +1,19 @@
+{
+    "banner": {
+        "header": "ბანერი",
+        "remove_button": "ბანერის მოშორება",
+        "upload_button": "ბანერის ატვირთვა"
+    },
+    "avatar": {
+        "header": "ავატარი",
+        "remove_button": "ავატარის მოშორება",
+        "upload_button": "ავატარის ატვირთვა"
+    },
+    "about": {
+        "header": "ჩემს შესახებ"
+    },
+    "socials": {
+        "header": "სოციალური ქსელები",
+        "socials_to_add_header": "სოციალური ქსელები, რომლის დამატებაც შეგიძლია"
+    }
+}

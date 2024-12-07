@@ -1,15 +1,19 @@
 import styles from './AuthorizedNavbar.module.css';
 import { useEffect, useState, useRef } from 'react';
-
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../../context/AuthProvider';
 
 import Button from '../../Button';
+import DefaultAvatar from '../../../assets/defaults/Avatar';
 import OptionsPopup from './components/OptionsPopup';
+import LanguagePopup from './components/LanguagePopup';
 
 export default function AuthorizedNavbar() {
+    const { user } = useAuth();
     const [optionsState, setOptionsState] = useState(false);
     const optionsButtonRef = useRef<HTMLButtonElement | null>(null);
     const optionsPopupRef = useRef<HTMLDivElement | null>(null);
+
+    const [languagePopupState, setLanguagePopupState] = useState(false);
 
     useEffect(() => {
         function documentClick(event: Event) {
@@ -26,7 +30,7 @@ export default function AuthorizedNavbar() {
         return () => {
             document.removeEventListener('mousedown', documentClick);
         }
-    }, [])
+    }, []);
 
     return (
         <nav className={`${styles['navbar']} flex space-between`}>
@@ -34,14 +38,26 @@ export default function AuthorizedNavbar() {
                 <span className={styles['head-text']}>Project IPLA</span>
             </a>
             <div className='flex row relative'>
-                {optionsState && (
-                    <OptionsPopup Ref={optionsPopupRef} />
-                )}
+                { languagePopupState && !optionsState && (
+                    <LanguagePopup 
+                        setSidebarOptionsState={setOptionsState}
+                        setLanguagePopupState={setLanguagePopupState}
+                    />
+                ) }
+                { optionsState && (
+                    <OptionsPopup 
+                        Ref={optionsPopupRef}
+                        setState={setOptionsState}
+                        setLanguagePopupState={setLanguagePopupState}
+                    />
+                ) }
                 <Button 
                     Ref={optionsButtonRef}
                     innerElement={
                         <span className={`${styles['user-avatar-wrapper']} flex content-center items-center`}>
-                            <UserCircleIcon strokeWidth={1} width={30} height={30} />
+                            <DefaultAvatar 
+                                username={user?.username}
+                            />
                         </span>
                     }
                     className={`${styles['options-button']}`}

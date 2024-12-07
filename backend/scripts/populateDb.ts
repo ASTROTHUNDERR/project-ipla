@@ -1,6 +1,9 @@
-import { User, Role, UserRole } from '../models';
+import { User, Role, UserRole } from '../db/models';
 
 const USER = {
+    first_name: 'Giorgi',
+    last_name: 'Merebashvili',
+    native_name: 'გიორგი მერებაშვილი',
     username: 'vision',
     email: 'giorgi@gmail.com',  
     password: 'merebagio', 

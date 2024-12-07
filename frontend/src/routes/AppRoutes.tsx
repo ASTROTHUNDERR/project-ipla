@@ -11,10 +11,14 @@ import Registration from '../pages/Auth/Registration';
 import FinishRegistration from '../pages/Auth/FinishRegistration';
 import PasswordReset from '../pages/Auth/PasswordReset';
 import ResetPassword from '../pages/Auth/ResetPassword';
+import EmailChangeVerification from '../pages/Auth/EmailChange/EmailChangeVerification';
+import EmailChangeVerifyNew from '../pages/Auth/EmailChange/VerifyNewEmail';
+
+import Home from '../pages/Home';
+import Settings from '../pages/Settings';
 
 import Support from '../pages/Support';
 
-import Home from '../pages/Home';
 
 function ExternalRedirect({ url }: { url: string }) {
     React.useEffect(() => {
@@ -41,6 +45,11 @@ export default function AppRoutes() {
             
             <Route element={<ProtectedRoute />}>
                 <Route path={`${prefix}`} element={<Home />} />
+                <Route path={`${prefix}/settings`} element={<Settings />} />
+                <Route path={`${prefix}/settings/:page`} element={<Settings />} />
+
+                <Route path={`${prefix}/verify-email-change`} element={<EmailChangeVerification />} />
+                <Route path={`${prefix}/verify-new-email`} element={<EmailChangeVerifyNew />} />
             </Route>
 
             <Route path={`${prefix}/support`} element={<Support />} />

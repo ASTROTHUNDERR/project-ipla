@@ -2,6 +2,7 @@ import styles from './WindowPopup.module.css';
 import React from 'react';
 
 import Button from '../Button';
+import SubmitButton from '../SubmitButton';
 
 const WindowCSSProperties: React.CSSProperties = {
     width: '100%',
@@ -13,21 +14,27 @@ const WindowCSSProperties: React.CSSProperties = {
 type Props = {
     width: number;
     header: string;
-    description: string | React.ReactNode;
+    content: string | React.ReactNode;
     cancelButton?: boolean;
+    cancelButtonText?: string | React.ReactNode;
     cancelButtonOnClick?: React.MouseEventHandler<HTMLButtonElement>;
+    submitLoading?: boolean;
+    dangerSubmitButton?: boolean;
     submitButtonInnerElement: string | React.ReactNode;
-    submitBtnOnClick: React.MouseEventHandler<HTMLButtonElement>;
+    onFormSubmit: React.FormEventHandler<HTMLFormElement>;
 }
  
 export default function WindowPopup({
     width,
     header,
-    description,
+    content,
     cancelButton,
+    cancelButtonText,
     cancelButtonOnClick,
+    submitLoading,
+    dangerSubmitButton,
     submitButtonInnerElement,
-    submitBtnOnClick
+    onFormSubmit,
 }: Props) {
     return (
         <div className='z-1 absolute flex items-center content-center' style={WindowCSSProperties}>
@@ -35,30 +42,32 @@ export default function WindowPopup({
                 <header className={styles['header']}>
                     {header}
                 </header>
-                <span className={`${styles['description']} margin-top-10`}>
-                    {description}
-                </span>
-                <div
-                    className={`${styles['submit-wrapper']} margin-top-45 flex row`} 
-                    style={ 
-                        !cancelButton 
-                        ? { justifyContent: 'flex-end' } 
-                        : { justifyContent: 'space-between' }   
-                    }
-                >
-                    {cancelButton && (
-                        <Button 
-                            innerElement='Cancel'
-                            className={styles['button']}
-                            onClick={cancelButtonOnClick}
+                <form onSubmit={onFormSubmit}>
+                    <div className={`${styles['content']} margin-top-10`}>
+                        {content}
+                    </div>
+                    <div
+                        className={`${styles['submit-wrapper']} flex`} 
+                        style={ 
+                            !cancelButton 
+                            ? { justifyContent: 'flex-end' } 
+                            : { justifyContent: 'space-between' }   
+                        }
+                    >
+                        { cancelButton && (
+                            <Button 
+                                innerElement={cancelButtonText ? cancelButtonText : 'Cancel'}
+                                className={styles['button']}
+                                onClick={cancelButtonOnClick}
+                            />
+                        ) }
+                        <SubmitButton 
+                            isLoading={submitLoading ? submitLoading : false}
+                            innerElement={submitButtonInnerElement}
+                            className={`${styles['button']} ${styles['submit']} ${dangerSubmitButton ? 'danger' : ''}`}
                         />
-                    )}
-                    <Button 
-                        innerElement={submitButtonInnerElement}
-                        className={`${styles['button']} ${styles['submit']}`}
-                        onClick={submitBtnOnClick}
-                    />
-                </div>
+                    </div>
+                </form>
             </div>
             <div className='overlay'></div>
         </div>

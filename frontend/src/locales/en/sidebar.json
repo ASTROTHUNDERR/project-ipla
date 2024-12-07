@@ -1,0 +1,16 @@
+{
+    "options": {
+        "view_profile": "View Profile",
+        "your_teams": "Your Teams",
+        "your_wallet": "Your Wallet",
+        "account_settings": "Account Settings",
+        "profile_settings": "Profile Settings",
+        "game_settings": "Game Settings",
+        "language": "Language",
+        "support": "Support",
+        "logout": "Logout"
+    },
+    "language_popup": {
+        "header": "Change Language"
+    }
+}

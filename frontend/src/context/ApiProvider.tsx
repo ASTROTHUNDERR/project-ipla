@@ -1,16 +1,19 @@
 import React, { createContext, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
-import { API } from '../utils/api';
+import { API, protectedApiRequest } from '../utils/api';
 
 interface ApiResponse<T> {
     data: T | null;
-    error: string | null;
+    error: string | any | null;
 }
 
 interface ApiContextType {
     loading: boolean;
     getRequest: (url: string) => Promise<ApiResponse<any>>;
     postRequest: (url: string, data: any) => Promise<ApiResponse<any>>;
+    protectedGetRequest: (url: string) => Promise<ApiResponse<any>>;
+    protectedPostRequest: (url: string, data: any) => Promise<ApiResponse<any>>;
+    protectedDeleteRequest: (url: string) => Promise<ApiResponse<any>>;
 }
 
 const ApiContext = createContext<ApiContextType | undefined>(undefined);
@@ -25,8 +28,10 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
             return { data: response.data, error: null };
         } catch (err) {
             const error = err as AxiosError;
-            const errorMessage = error.response
-                ? (error.response.data as any).message
+            const errorMessage = error.response && (error.response.data as any).errorMessage
+                ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
                 : 'Network error, please try again later.';
             return { data: null, error: errorMessage };
         } finally {
@@ -38,13 +43,67 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(true);
         try {
             const response = await API.post(endpoint, data);
-            console.log(response)
             return { data: response.data, error: null };
         } catch (err) {
-            console.log(err)
             const error = err as AxiosError;
-            const errorMessage = error.response
+            const errorMessage = error.response && (error.response.data as any).errorMessage
                 ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
+                : 'Network error, please try again later.';
+            return { data: null, error: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    async function protectedGetRequest(endpoint: string) {
+        setLoading(true);
+        try {
+            const response = await protectedApiRequest(API.get, endpoint, 'GET');
+            return { data: response?.data, error: null };
+        } catch (err) {
+            const error = err as AxiosError;
+            const errorMessage = error.response && (error.response.data as any).errorMessage
+                ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
+                : 'Network error, please try again later.';
+            return { data: null, error: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    async function protectedPostRequest(endpoint: string, data: any) {
+        setLoading(true);
+        try {
+            const response = await protectedApiRequest(API.post, endpoint, 'POST', data);
+            return { data: response?.data, error: null };
+        } catch (err) {
+            const error = err as AxiosError;
+            const errorMessage = error.response && (error.response.data as any).errorMessage
+                ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
+                : 'Network error, please try again later.';
+            return { data: null, error: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    async function protectedDeleteRequest(endpoint: string) {
+        setLoading(true);
+        try {
+            const response = await protectedApiRequest(API.delete, endpoint, 'DELETE');
+            return { data: response?.data, error: null };
+        } catch (err) {
+            const error = err as AxiosError;
+            const errorMessage = error.response && (error.response.data as any).errorMessage
+                ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
                 : 'Network error, please try again later.';
             return { data: null, error: errorMessage };
         } finally {
@@ -53,7 +112,14 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <ApiContext.Provider value={{ loading, getRequest, postRequest }}>
+        <ApiContext.Provider value={{ 
+            loading, 
+            getRequest, 
+            postRequest, 
+            protectedGetRequest,
+            protectedPostRequest,
+            protectedDeleteRequest
+        }}>
             {children}
         </ApiContext.Provider>
     );

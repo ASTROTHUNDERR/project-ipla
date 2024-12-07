@@ -10,14 +10,14 @@ import Navbar from '../../components/Navbar/Unauthorized';
 import SupportCard from './components/Card';
 
 function Support() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('support');
 
     return (
         <div className='main-content flex column items-center'>
             <Navbar />
             <main className={`${styles['main']} flex column`}>
                 <header className={`${styles['header']} text-center`}>
-                    {t('support.header')}
+                    {t('header')}
                 </header>
                 <div className={`${styles['banner']} flex items-center content-center`}
                     style={{
@@ -25,15 +25,15 @@ function Support() {
                     }}
                 >
                     <span className='text-center' style={{ maxWidth: 500 }}>
-                        {t('support.banner_text')}
+                        {t('banner_text')}
                     </span>
                 </div>
                 <div className={`${styles['cards-wrapper']}`}>
                     <SupportCard 
-                        header={t('support.cards.email.header')}
-                        description={t('support.cards.email.description')}
+                        header={t('cards.email.header')}
+                        description={t('cards.email.description')}
                         link='mailto:support@ipla.com'
-                        buttonText={t('support.cards.email.button_text')}
+                        buttonText={t('cards.email.button_text')}
                         iconData={{
                             Icon: EmailIconSVG,
                             width: 100,
@@ -41,10 +41,10 @@ function Support() {
                         }}
                     />
                     <SupportCard 
-                        header={t('support.cards.discord.header')}
-                        description={t('support.cards.discord.description')}
+                        header={t('cards.discord.header')}
+                        description={t('cards.discord.description')}
                         link='/discord'
-                        buttonText={t('support.cards.discord.button_text')}
+                        buttonText={t('cards.discord.button_text')}
                         iconData={{
                             Icon: DiscordIconSVG,
                             width: 100,

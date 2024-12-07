@@ -18,7 +18,7 @@ type HelperMessages = {
 };
 
 export default function ResetPassword() {
-    const { t } = useTranslation();
+    const { t } = useTranslation('auth');
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
@@ -30,7 +30,7 @@ export default function ResetPassword() {
 
     const [helperMessages, setHelperMessages] = useState<HelperMessages | undefined>(undefined);
 
-    const inputFields: { header: string }[] = t('auth.reset_password.input_fields', { returnObjects: true }) as { header: string }[];
+    const inputFields: { header: string }[] = t('resetPassword.input_fields', { returnObjects: true }) as { header: string }[];
 
     useEffect(() => {
         if (!token) {
@@ -86,7 +86,7 @@ export default function ResetPassword() {
                 <section className='auth-content-wrapper flex items-center content-center column'>
                     <div className='auth-login-content'>
                         <div className='auth-content-title-wrapper flex content-center text-center'>
-                            <h1 className='auth-title'>{t('auth.reset_password.header')}</h1>
+                            <h1 className='auth-title'>{t('resetPassword.header')}</h1>
                         </div>
                         <form className='auth-login-form flex column' onSubmit={handleSubmit(onSubmit)}>
                             {filteredInputFields.map((field, index) => (
@@ -96,6 +96,7 @@ export default function ResetPassword() {
                                     headText={field.header}
                                     inputType='password'
                                     inputName={field.name}
+                                    inputId={field.name}
                                     helperMessage={helperMessages?.[field.name]}
                                     register={register}
                                     {...(index === 1 && {
@@ -105,13 +106,13 @@ export default function ResetPassword() {
                             ))}
                             <SubmitButton 
                                 isLoading={loading}
-                                innerElement={t('auth.reset_password.submit_button')}
+                                innerElement={t('resetPassword.submit_button')}
                                 className='auth-submit-btn margin-top-30'
                             />
                         </form>
                         <div className='auth-helper-wrapper bottom'>
-                            <span>{t('auth.reset_password.footer.text')}</span>
-                            <a href="/login">{t('auth.reset_password.footer.button_text')}</a>
+                            <span>{t('resetPassword.footer.text')}</span>
+                            <a href="/login">{t('resetPassword.footer.button_text')}</a>
                         </div>
                     </div>
                 </section>
