@@ -91,8 +91,8 @@ authRouter.post(
     authenticateToken.authenticateToken, 
     AuthController.enableTwoFactorAuthentication
 );
-authRouter.delete(
-    '/2fa/disable/:userId',
+authRouter.post(
+    '/2fa/disable',
     refreshAndDataRateLimit.apply(), 
     authenticateToken.authenticateToken, 
     AuthController.removeTwoFactorAuthentication

@@ -643,25 +643,28 @@ class AuthController {
     static async removeTwoFactorAuthentication(req: AuthenticatedRequest, res: Response) {
         try {
             if (req.currentUser) {
-                const { userId } = req.params;
+                const validatedData = AuthSchemas.twoFactorAuthSubmit.parse(req.body);
+                const { token } = validatedData;
 
-                if (parseInt(userId) !== req.currentUser.id) {
-                    res.status(403).send('Forbidden');
-                    return;
-                }
-
-                const has2FAEnabled = await TwoFactorAuthenticator.findOne({
+                const twoFactorAuth = await TwoFactorAuthenticator.findOne({
                     where: { user_id: req.currentUser.id }
                 });
 
-                if (!has2FAEnabled) {
+                if (!twoFactorAuth) {
                     res.status(404).send({ errorMessage: 'Account does not have 2FA enabled' });
                     return;
                 }
 
-                await has2FAEnabled.destroy();
+                const isValid = authenticator.check(token, twoFactorAuth.secret);
 
-                res.status(200).send('Successfully disabled 2FA'); res.status(403).send('Forbidden');
+                if (!isValid) {
+                    res.status(400).send({ errorMessage: 'Invalid' });
+                    return;
+                }
+
+                await twoFactorAuth.destroy();
+
+                res.status(200).send('Successfully disabled 2FA');
                 return;
             } else {
                 res.status(401).send('Not authorized');
