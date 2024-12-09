@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../../../../../context/ApiProvider';
 import { useGeneral } from '../../../../../context/GeneralProvider';
@@ -7,7 +8,6 @@ import { SAWindowPopupState } from '../../../types';
 
 import WindowPopup from '../../../../../components/WindowPopup';
 import TwoFactorAuthPopup from '../../../../../components/2FAPopup';
-import { SubmitHandler } from 'react-hook-form';
 
 type Props = {
     userId: number;

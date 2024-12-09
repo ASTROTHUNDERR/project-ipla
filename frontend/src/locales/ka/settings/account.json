@@ -7,6 +7,12 @@
         "email": "ელფოსტა"
     },
     "fields": {
+        "name": {
+            "header": "სახელი"
+        },
+        "birthday": {
+            "header": "დაბადების დღე"
+        },
         "password": {
             "header": "პაროლი",
             "button_text": "შეცვალე პაროლი"

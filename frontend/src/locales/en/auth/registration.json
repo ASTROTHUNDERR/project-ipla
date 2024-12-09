@@ -89,21 +89,25 @@
             "helper_texts": {
                 "first_name": {
                     "general": "Enter your first name in English.",
+                    "inappropriate": "Name contains inappropriate word(s).",
                     "error_texts": {
                         "invalid": "First name is invalid."
                     }
                 },
                 "last_name": {
                     "general": "Enter your last name in English.",
+                    "inappropriate": "Last name contains inappropriate word(s).",
                     "error_texts": {
                         "invalid": "Last name is invalid."
                     }
                 },
                 "native_name": {
-                    "general": "Enter your name in your language."
+                    "general": "Enter your name in your language.",
+                    "inappropriate": "Native name contains inappropriate word(s)."
                 },
                 "username": {
                     "general": "Please use only letters, numbers and underscores (_).",
+                    "inappropriate": "Username contains inappropriate word(s).",
                     "error_texts": {
                         "length": "Username must be minimum 4 and maximum 14 characters long.",
                         "in_use": "This username is already in use. Please choose another."

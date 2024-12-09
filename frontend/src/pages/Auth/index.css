@@ -150,10 +150,12 @@
     transition: width 300ms;
 }
 .bd-input.day {
-    width: 65px;
+    width: 75px;
+    padding-right: 10px;
 }
 .bd-input.year {
-    width: 100px;
+    width: 90px;
+    padding-right: 10px;
 }
 .auth-selection {
     width: 140px;
@@ -269,11 +271,19 @@
     }
     .bd-input.day {
         width: 100%;
+        padding-right: 15px;
     }
     .bd-input.year {
         width: 100%;
+        padding-right: 15px;
     }
     .auth-selection {
         width: 100%;
+    }
+    .bd-day {
+        width: 50%;
+    }
+    .bd-year {
+        width: 50%;
     }
 }

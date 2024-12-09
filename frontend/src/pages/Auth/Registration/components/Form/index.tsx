@@ -52,7 +52,7 @@ export default function RegistrationFormPage() {
         password: { text: t('registration.registration.form.helper_texts.password.general'), danger: false },
     });
 
-    const [birthMonth, setBirthMonth] = useState<string | null>(null);
+    const [inpBirthDate, setBirthDate] = useState<{ month?: string, day?: string, year?: string } | null>(null);
     const [countryList, setCountryList] = useState<any | null>(null);
     const [selectedCountry, setSelectedCountry] = useState<{ value: string, content: string } | null>(null);
 
@@ -81,11 +81,7 @@ export default function RegistrationFormPage() {
             password: errors.password && errors.password.message
                 ? { text: t(errors.password.message), danger: true }
                 : { text: t('registration.registration.form.helper_texts.password.general'), danger: false },
-            birthDate: (errors.birthYear || errors.birthDay) 
-                ? { text: t('registration.registration.form.helper_texts.birth_date.error_texts.unreal'), danger: true }
-                : prev.birthDate,
         }));
-        console.log(errors)
     }, [secondStepMethods.formState.errors, t]);  
     
     useEffect(() => {
@@ -97,8 +93,15 @@ export default function RegistrationFormPage() {
         }
     }, [selectedCountry, i18n.language, secondStepMethods])
 
-    const handleMonthSelectChange = (e: React.MouseEvent<HTMLDivElement>) => {
-        setBirthMonth(e.currentTarget.textContent as string); 
+    const handleBirthDateChange = (
+        e: React.MouseEvent<HTMLDivElement | null, MouseEvent>, 
+        part: 'month' | 'day' | 'year'
+    ) => {
+        setBirthDate(prevData => 
+            prevData && e.currentTarget.textContent
+                ? { ...prevData, [part]: e.currentTarget.textContent as string } 
+                : { [part]: e.currentTarget.textContent as string }
+        )
     };
 
     const handleCountrySelectChange = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -108,15 +111,33 @@ export default function RegistrationFormPage() {
         }); 
     };
 
-    const handleNext = async () => {
-        let isValid = false;
-        if (currentStep === 1) {
-            isValid = await firstStepMethods.trigger();
-        } else if (currentStep === 2) {
-            isValid = await secondStepMethods.trigger();
-        }
-    
-        if (isValid) {
+    const handleNext: SubmitHandler<RegistrationFirstStepFormData> = async (data) => {
+        const response = await postRequest('/auth/register/first-step', data);
+        if (response.error) {
+            const errorResponse = response.error as { 
+                message: string,
+                path: string[]
+            }[];
+
+            const firstNameMessage = errorResponse.find(e => e.path.includes('firstName'))?.message;
+            const lastNameMessage = errorResponse.find(e => e.path.includes('lastName'))?.message;
+            const nativeNameMessage = errorResponse.find(e => e.path.includes('nativeName'))?.message;
+            const translatedText = 'registration.registration.form.helper_texts.first_name.inappropriate';
+
+            setHelperMessages(prevData => ({
+                ...prevData,
+                firstName: firstNameMessage ? { 
+                    text: t(translatedText), danger: true   
+                } : prevData.firstName,
+                lastName: lastNameMessage ? {
+                    text: t(translatedText), danger: true
+                } : prevData.lastName,
+                nativeName: nativeNameMessage ? {
+                    text: t(translatedText), danger: true
+                } : prevData.nativeName
+            }));
+            return;
+        } else {
             setCurrentStep(2);
         }
     };
@@ -135,9 +156,7 @@ export default function RegistrationFormPage() {
         const firstStepValues = firstStepMethods.getValues();
         const secondStepValues = secondStepMethods.getValues();
 
-        const { birthDay, birthYear } = secondStepValues;
-
-        if (!birthMonth) {
+        if (!inpBirthDate || !inpBirthDate.month || !inpBirthDate.day || !inpBirthDate.year) {
             setHelperMessages(prev => ({
                 ...prev,
                 birthDate: {
@@ -149,7 +168,7 @@ export default function RegistrationFormPage() {
         }
 
         const birthDate = functions.validateBirthDate(
-            birthDay, birthMonth, birthYear, months, t, setHelperMessages
+            inpBirthDate.day, inpBirthDate.month, inpBirthDate.year, months, t, setHelperMessages
         );
 
         if (!selectedCountry) {
@@ -175,6 +194,7 @@ export default function RegistrationFormPage() {
                 birthDate,
                 type: registrationType
             });
+            console.log(request)
             if (request.error) {
                 const errorMessages: HelperMessages = {};
                 if (request.error.includes('username')) {
@@ -201,6 +221,25 @@ export default function RegistrationFormPage() {
                     setHelperMessages(prev => ({ ...prev, ...errorMessages }));
                     return;
                 }
+
+                const errorResponse = request.error as { 
+                    message: string,
+                    path: string[]
+                }[];
+    
+                const usernameMessage = errorResponse.find(e => e.path.includes('username'))?.message;
+
+                if (usernameMessage) {
+                    setHelperMessages(prev => ({
+                        ...prev,
+                        username: {
+                            text: t('registration.registration.form.helper_texts.username.inappropriate'),
+                            danger: true
+                        }
+                    }));
+                    return;
+                }
+
             } else {
                 navigate('/login');
             }
@@ -252,11 +291,12 @@ export default function RegistrationFormPage() {
                             onBlur={functions.handleInputOnBlur}
                             onFocus={functions.handleInputOnFocus}
                             handleRegexInput={functions.handleRegexInput}
-                            birthMonth={birthMonth}
+                            birthDate={inpBirthDate}
+                            setBirthDate={setBirthDate}
+                            handleBirthDateChange={handleBirthDateChange}
                             selectedCountry={selectedCountry}
                             countryList={countryList}
                             handleCountrySelectChange={handleCountrySelectChange}
-                            handleMonthSelectChange={handleMonthSelectChange}
                             isLoading={loading}
                             onSubmit={handleFinalSubmit}
                         />

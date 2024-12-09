@@ -19,7 +19,6 @@ import Settings from '../pages/Settings';
 
 import Support from '../pages/Support';
 
-
 function ExternalRedirect({ url }: { url: string }) {
     React.useEffect(() => {
       window.location.href = url;

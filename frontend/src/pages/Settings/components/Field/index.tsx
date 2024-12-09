@@ -6,6 +6,8 @@ type Props = {
     headerText: string;
     additionalClassname?: string;
     content?: string | React.ReactNode;
+    contentMargin?: boolean;
+    secondary?: boolean;
     danger?: boolean;
     secondaryDanger?: boolean;
     contentButtons?: boolean;
@@ -17,6 +19,8 @@ export default function SettingsField({
     headerText,
     additionalClassname,
     content,
+    contentMargin,
+    secondary,
     danger,
     secondaryDanger,
     contentButtons,
@@ -24,14 +28,16 @@ export default function SettingsField({
     onButtonClick
 }: Props) {
     return (
-        <div className={`${styles['field-wrapper']} flex column relative ${additionalClassname ? additionalClassname : ''} ${danger ? styles['danger'] : ''}`}>
+        <div
+            className={`${styles['field-wrapper']} flex column relative ${additionalClassname ? additionalClassname : ''} ${danger ? styles['danger'] : ''} ${secondary ? styles['secondary'] : ''}`}
+        >
             <div className={`${styles['header']} absolute`}>
                 <span>{headerText}</span>
             </div>
             { content && (
                 <>
                     { typeof content === 'string' ? (
-                        <span className={styles['description']}>{content}</span>
+                        <span className={`${styles['description']} ${contentMargin ? 'margin-bottom-15' : ''}`}>{content}</span>
                     ) : (
                         content
                     )}

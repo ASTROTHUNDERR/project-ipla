@@ -1,6 +1,5 @@
 import styles from '../SocialsComp.module.css';
-
-import { ReactComponent as PlusIcon} from '../../../../../../../assets/icons/plus.svg';
+import { useTranslation } from 'react-i18next';
 
 import Button from '../../../../../../../components/Button';
 
@@ -13,6 +12,8 @@ export default function ConnectableSocial({
     icon,
     name
 }: Props) {
+    const { t } = useTranslation('settings');
+
     return (
         <div className={`${styles['connectable-social']} flex items-center space-between`}>
             <div className='flex items-center'>
@@ -26,9 +27,7 @@ export default function ConnectableSocial({
                 <span style={{ marginLeft: 8 }}>{name}</span>
             </div>
             <Button 
-                innerElement={
-                    <PlusIcon className='flex items-center content-center' width={16} height={16} stroke='var(--secondary-50)' />
-                }
+                innerElement={t('profile.socials.connect_button')}
                 className={`${styles['social-add-btn']} flex items-center content-center`}
             />
         </div>

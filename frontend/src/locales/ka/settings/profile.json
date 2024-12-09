@@ -2,18 +2,45 @@
     "banner": {
         "header": "ბანერი",
         "remove_button": "ბანერის მოშორება",
-        "upload_button": "ბანერის ატვირთვა"
+        "upload_button": "ბანერის ატვირთვა",
+        "remove_popup": {
+            "description": "დაწრმუნებული ხარ, რომ გინდა ბანერის მოშორება?",
+            "submit_button": "დაიახ, მოაშორე"
+        },
+        "upload_popup": {
+            "header": "მოჭერი ახალი პროფილის ბანერი",
+            "submit_button": "დააყენე ახალი პროფილის ბანერი",
+            "error_messages": {
+                "limit": "ბანერის ზომამ გადააჭარმა ლიმიტს: 1MB"
+            }
+        }
     },
     "avatar": {
-        "header": "ავატარი",
-        "remove_button": "ავატარის მოშორება",
-        "upload_button": "ავატარის ატვირთვა"
+        "header": "ფოტო",
+        "remove_button": "ფოტოს მოშორება",
+        "upload_button": "ფოტოს ატვირთვა",
+        "remove_popup": {
+            "header": "ფოტოს წაშლა",
+            "description": "დაწრმუნებული ხარ, რომ გინდა ფოტოს წაშლა?",
+            "submit_button": "დაიახ, წაშალე"
+        },
+        "upload_popup": {
+            "header": "მოჭერი ახალი პროფილის ფოტო",
+            "submit_button": "დააყენე ახალი პროფილის ფოტო",
+            "error_messages": {
+                "limit": "ფოტოს ზომამ გადააჭარმა ლიმიტს: 1MB"
+            }
+        }
     },
     "about": {
-        "header": "ჩემს შესახებ"
+        "header": "ჩემს შესახებ",
+        "helper_texts": {
+            "inappropriate": "'ჩემს შესახებ' ტექსტი შეიცავს შეუსაბამო სიტვას (სიტყვებს)."
+        }
     },
     "socials": {
         "header": "სოციალური ქსელები",
-        "socials_to_add_header": "სოციალური ქსელები, რომლის დამატებაც შეგიძლია"
+        "socials_to_add_header": "სოციალური ქსელები, რომლის დამატებაც შეგიძლია",
+        "connect_button": "დაკავშირება"
     }
 }

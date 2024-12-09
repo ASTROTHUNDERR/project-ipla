@@ -9,10 +9,14 @@ import DefaultBanner from '../../../../../../assets/defaults/Banner';
 import DefaultAvatar from '../../../../../../assets/defaults/Avatar';
 
 type Props = {
+    bannerUrl?: string;
+    avatarUrl?: string;
     userData: UserType;
 }
 
 export default function SAProfileCard({
+    bannerUrl,
+    avatarUrl,
     userData
 }: Props) {
     const { t } = useTranslation('settings');
@@ -23,25 +27,35 @@ export default function SAProfileCard({
             <div style={{ height: 110 }}>
                 <div 
                     className={`${styles['banner']} absolute`}
+                    style={bannerUrl ? {
+                        backgroundImage: `url(${bannerUrl})`
+                    } : {}}
                 >
-                    <DefaultBanner 
-                        width={'100%'}
-                        height={'100%'}
-                        iconWidth={20}
-                        iconHeight={20}
-                        additionalProperties={{
-                            borderTopLeftRadius: 4,
-                            borderTopRightRadius: 4
-                        }}
-                    />
+                    { !bannerUrl && (
+                        <DefaultBanner 
+                            width={'100%'}
+                            height={'100%'}
+                            iconWidth={20}
+                            iconHeight={20}
+                            additionalProperties={{
+                                borderTopLeftRadius: 4,
+                                borderTopRightRadius: 4
+                            }}
+                        />
+                    ) }
                 </div>
             </div>
             <div 
                 className={`${styles['avatar']} absolute`}
+                style={avatarUrl ? {
+                    backgroundImage: `url(${avatarUrl})`
+                } : {}}
             >
-                <DefaultAvatar 
-                    username={userData.username} 
-                />
+                { !avatarUrl && (
+                    <DefaultAvatar 
+                        username={userData.username} 
+                    />
+                ) }
             </div>
             <div className={`${styles['content-wrapper']} flex space-between`}>
                 <div className='flex'>

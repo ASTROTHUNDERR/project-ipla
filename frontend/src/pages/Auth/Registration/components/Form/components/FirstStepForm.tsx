@@ -1,7 +1,7 @@
-import { UseFormReturn } from 'react-hook-form';
+import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { HelperMessages } from '../../../../types';
+import { HelperMessages, RegistrationFirstStepFormData } from '../../../../types';
 
 import InputField from '../../../../../../components/InputField';
 import SubmitButton from '../../../../../../components/SubmitButton';
@@ -24,7 +24,7 @@ type Props = {
         setHelperMessages: (value: React.SetStateAction<HelperMessages>) => void
     ): boolean;
     isLoading: boolean;
-    onSubmit: () => void;
+    onSubmit: SubmitHandler<RegistrationFirstStepFormData>;
 }
 
 export default function FirstStepForm({ 

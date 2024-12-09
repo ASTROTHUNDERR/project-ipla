@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export interface ApiResponse<T> {
+    data: T | null;
+    error: string | any | null;
+};
+
 export interface User {
     id: number;
     first_name: string;
@@ -27,9 +32,9 @@ export const TFAFormSchema = z.object({
 
 export interface UserProfile {
     user_id: number;
-    banner_url: string;
-    avatar_url: string;
-    about: string;
+    banner_path?: string;
+    avatar_path?: string;
+    about?: string;
     socials?: {
         url: string;
         nickname: string;

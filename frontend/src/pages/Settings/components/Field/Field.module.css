@@ -6,6 +6,9 @@
 .field-wrapper.danger {
     border: 1px solid var(--danger-500);
 }
+.field-wrapper.secondary {
+    border: 1px solid var(--secondary-300);
+}
 .header {
     left: 14px;
     top: -8.5px;
@@ -16,7 +19,6 @@
     background-color: var(--secondary-500);
 }
 .description {
-    margin-bottom: 15px;
     font-size: 14px;
     color: var(--secondary-200);
 }

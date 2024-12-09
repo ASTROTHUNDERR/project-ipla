@@ -8,7 +8,7 @@ import InstagramLogo from '../../../../../../../assets/socials/Instagram_Glyph_G
 import XLogo from '../../../../../../../assets/socials/x-logo.svg';
 import FacebookLogo from '../../../../../../../assets/socials/Facebook_Logo_Primary.png';
 
-import ConnectedSocial from './ConnectedSocial'; 
+// import ConnectedSocial from './ConnectedSocial'; 
 import ConnectableSocial from './ConnectableSocial';
 
 const ALL_SOCIALS = [

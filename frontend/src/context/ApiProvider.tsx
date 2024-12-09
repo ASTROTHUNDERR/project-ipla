@@ -1,11 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 import { AxiosError } from 'axios';
-import { API, protectedApiRequest } from '../utils/api';
 
-interface ApiResponse<T> {
-    data: T | null;
-    error: string | any | null;
-}
+import { API, protectedApiRequest } from '../utils/api';
+import { ApiResponse } from '../utils/types';
 
 interface ApiContextType {
     loading: boolean;
@@ -13,6 +10,7 @@ interface ApiContextType {
     postRequest: (url: string, data: any) => Promise<ApiResponse<any>>;
     protectedGetRequest: (url: string) => Promise<ApiResponse<any>>;
     protectedPostRequest: (url: string, data: any) => Promise<ApiResponse<any>>;
+    protectedPutRequest: (url: string, data: any) => Promise<ApiResponse<any>>;
     protectedDeleteRequest: (url: string) => Promise<ApiResponse<any>>;
 }
 
@@ -93,6 +91,24 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    async function protectedPutRequest(endpoint: string, data: any) {
+        setLoading(true);
+        try {
+            const response = await protectedApiRequest(API.put, endpoint, 'PUT', data);
+            return { data: response?.data, error: null };
+        } catch (err) {
+            const error = err as AxiosError;
+            const errorMessage = error.response && (error.response.data as any).errorMessage
+                ? (error.response.data as any).errorMessage
+                :  error.response && (error.response.data as any).errors
+                ? (error.response.data as any).errors
+                : 'Network error, please try again later.';
+            return { data: null, error: errorMessage };
+        } finally {
+            setLoading(false);
+        }
+    };
+
     async function protectedDeleteRequest(endpoint: string) {
         setLoading(true);
         try {
@@ -118,6 +134,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
             postRequest, 
             protectedGetRequest,
             protectedPostRequest,
+            protectedPutRequest,
             protectedDeleteRequest
         }}>
             {children}

@@ -5,7 +5,9 @@
         "back": "Back",
         "cancel": "Cancel",
         "submit": "Submit",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "save": "Save",
+        "reset": "Reset"
     },
     "date": {
         "day": "Day",

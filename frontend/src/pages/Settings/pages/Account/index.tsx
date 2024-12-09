@@ -1,11 +1,14 @@
 import styles from './Account.module.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../../context/AuthProvider';
-// import { useGeneral } from '../../../../context/GeneralProvider';
+import { useApi } from '../../../../context/ApiProvider';
 
+import { BASE_URL } from '../../../../utils/api';
 import { SAWindowPopupState } from '../../types';
+import { UserProfile } from '../../../../utils/types';
+import { formatReadableDate } from '../../../../utils/functions';
 
 import SAProfileCard from './components/ProfileCard';
 import SAInfoCard from './components/InfoCard';
@@ -21,9 +24,26 @@ import SettingsAccountEmailChangePopup from './components/AECPopup';
 export default function SettingsAccount() {
     const { t } = useTranslation(['settings', 'auth']);
     const { user } = useAuth();
-    // const { setInfoData } = useGeneral();
+    const { protectedGetRequest } = useApi();
 
+    const [userProfileData, setUserProfileData] = useState<UserProfile | null>(null);
     const [windowPopupState, setWindowPopupState] = useState<SAWindowPopupState | null>(null);
+
+    useEffect(() => {
+        async function getUserProfileData() {
+            if (user) {
+                const response = await protectedGetRequest(`/user-profile/${user.id}`);
+
+                if (response.error) {
+                    window.location.href = '/';
+                } else {
+                    setUserProfileData(response.data);
+                }
+            }
+        }
+        getUserProfileData();
+        // eslint-disable-next-line
+    }, []);
 
 
     return (
@@ -62,6 +82,16 @@ export default function SettingsAccount() {
                 <>
                     <div className={`${styles['upper-wrapper']} flex space-between`}>
                         <SAProfileCard 
+                            bannerUrl={
+                                userProfileData?.banner_path 
+                                    ? `${BASE_URL}${userProfileData.banner_path}`
+                                    : undefined
+                            }
+                            avatarUrl={
+                                userProfileData?.avatar_path 
+                                ? `${BASE_URL}${userProfileData.avatar_path}`
+                                : undefined
+                            }
                             userData={user}
                         />
                         <div className={`${styles['upper-right-wrapper']} flex column space-between`}>
@@ -80,6 +110,18 @@ export default function SettingsAccount() {
                             />
                         </div>
                     </div>
+                    <SettingsField
+                        secondary
+                        additionalClassname='margin-top-30'
+                        headerText={t('account.fields.name.header')}
+                        content={`${user.first_name} ${user.last_name}`}
+                    />
+                    <SettingsField
+                        secondary
+                        additionalClassname='margin-top-30'
+                        headerText={t('account.fields.birthday.header')}
+                        content={formatReadableDate(user.birthDate)}
+                    />
                     { !user.authProvider && (
                         <SettingsField
                             additionalClassname='margin-top-30'
@@ -91,6 +133,7 @@ export default function SettingsAccount() {
                     <SettingsField
                         additionalClassname='margin-top-30'
                         headerText={t('account.fields.authenticator_app.header')}
+                        contentMargin
                         content={t('account.fields.authenticator_app.description')}
                         buttonText={t('account.fields.authenticator_app.submit_button_text')}
                         onButtonClick={() => setWindowPopupState('add_auth_app')}
@@ -104,6 +147,7 @@ export default function SettingsAccount() {
                         danger
                         additionalClassname='margin-top-30'
                         headerText={t('account.fields.account_deletion.header')}
+                        contentMargin
                         content={t('account.fields.account_deletion.description')}
                         buttonText={t('account.fields.account_deletion.button_text')}
                         onButtonClick={() => setWindowPopupState('delete_account')}

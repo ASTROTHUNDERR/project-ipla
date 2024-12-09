@@ -8,6 +8,7 @@ type Option = {
 }
 
 type Props = {
+    wrapperClassName?: string;
     selectId?: string;
     selectClassName: string;
     selectStyle?: React.CSSProperties;
@@ -21,6 +22,7 @@ type Props = {
 }
 
 export default function Selection({
+    wrapperClassName,
     selectId,
     selectClassName,
     selectStyle,
@@ -54,7 +56,7 @@ export default function Selection({
     }, [])
 
     return (
-        <div className='flex column relative'>
+        <div className={`flex column relative ${wrapperClassName ? wrapperClassName : ''}`}>
             <div 
                 ref={selectRef}
                 id={selectId}

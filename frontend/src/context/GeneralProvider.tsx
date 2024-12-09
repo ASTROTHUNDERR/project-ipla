@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-interface InfoData {
+export interface InfoData {
     content: string;
     danger?: boolean;
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import { io } from 'socket.io-client';
 
-const BASE_URL = 'http://localhost:3011';
+export const BASE_URL = 'http://localhost:3011';
 export const API = axios.create({ baseURL: `${BASE_URL}/api` });
 export const socket = io(BASE_URL);
 
@@ -117,4 +117,19 @@ export async function protectedApiRequest<
     }
 
     return null;
-}
+};
+
+export async function getUserProfileData(userId: number) {
+    try {
+        const response = await protectedApiRequest(API.get, `/user-profile/${userId}`, 'GET');
+        return { data: response?.data, error: null };
+    } catch (err) {
+        const error = err as AxiosError;
+        const errorMessage = error.response && (error.response.data as any).errorMessage
+            ? (error.response.data as any).errorMessage
+            :  error.response && (error.response.data as any).errors
+            ? (error.response.data as any).errors
+            : 'Network error, please try again later.';
+        return { data: null, error: errorMessage };
+    }
+};

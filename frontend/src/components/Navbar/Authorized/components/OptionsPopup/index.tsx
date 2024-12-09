@@ -9,12 +9,14 @@ import Button from '../../../../Button';
 
 type Props = {
     Ref: React.MutableRefObject<HTMLDivElement | null>;
+    avatarUrl?: string;
     setState: React.Dispatch<React.SetStateAction<boolean>>;
     setLanguagePopupState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function OptionsPopup({
     Ref,
+    avatarUrl,
     setState,
     setLanguagePopupState
 }: Props) {
@@ -23,7 +25,18 @@ export default function OptionsPopup({
 
     return (
         <div ref={Ref} className={`${styles['options-popup']} absolute flex column`}>
-            <a href={`/profile/${user?.username}`} className={`${styles['button']}`}>
+            <a href={`/profile/${user?.username}`} className={`${styles['button']} flex items-center`}>
+                { avatarUrl && (
+                    <div style={{
+                        width: 24, height: 24,
+                        borderRadius: '100%',
+                        backgroundImage: `url(${avatarUrl})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover',
+                        marginRight: 8
+                    }}></div>
+                ) }
                 {t('options.view_profile')}
             </a>
             <div className={styles['divider']}></div>

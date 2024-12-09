@@ -1,0 +1,48 @@
+.window {
+    width: 500px;
+    height: fit-content;
+    margin: 160px auto;
+    border-radius: 6px;
+    background-color: var(--secondary-500);
+    z-index: 1;
+    font-family: var(--font);
+    overflow: hidden;
+    position: fixed;
+}
+.header {
+    padding: 20px 20px 15px 20px;
+    color: var(--secondary-50);
+    font-size: 18px;
+    border-bottom: 1px solid var(--secondary-400);
+}
+.close-button {
+    padding: 5px;
+    border-radius: 3px;
+}
+.close-button:hover {
+    background-color: var(--secondary-400);
+}
+.image-crop-wrapper {
+    padding: 30px 30px 35px 30px;
+    width: 100%;
+    min-height: 250px;
+    max-height: 400px;
+}
+.image-crop {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.image-crop .ReactCrop__crop-selection {
+    width: 100% !important;
+}
+
+.submit-button {
+    width: 100%;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary-50);
+    border-radius: 6px;
+}

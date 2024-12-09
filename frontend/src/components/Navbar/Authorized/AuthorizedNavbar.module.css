@@ -22,4 +22,5 @@
     height: 32px;
     border-radius: 50%;
     background-color: var(--secondary-300);
+    overflow: hidden;
 }

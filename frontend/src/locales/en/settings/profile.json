@@ -2,18 +2,45 @@
     "banner": {
         "header": "Banner",
         "remove_button": "Remove Banner",
-        "upload_button": "Upload Banner"
+        "upload_button": "Upload Banner",
+        "remove_popup": {
+            "description": "Are you sure you want to remove banner?",
+            "submit_button": "Yes, Remove"
+        },
+        "upload_popup": {
+            "header": "Crop new profile banner",
+            "submit_button": "Set new profile banner",
+            "error_messages": {
+                "limit": "Banner size exceeded the limit: 1MB"
+            }
+        }
     },
     "avatar": {
         "header": "Avatar",
         "remove_button": "Remove Avatar",
-        "upload_button": "Upload Avatar"
+        "upload_button": "Upload Avatar",
+        "remove_popup": {
+            "header": "Avatar Removal",
+            "description": "Are you sure you want to remove avatar?",
+            "submit_button": "Yes, Remove"
+        },
+        "upload_popup": {
+            "header": "Crop new profile avatar",
+            "submit_button": "Set new profile avatar",
+            "error_messages": {
+                "limit": "Avatar size exceeded the limit: 1MB"
+            }
+        }
     },
     "about": {
-        "header": "About"
+        "header": "About",
+        "helper_texts": {
+            "inappropriate": "About content contains inappropriate word(s)."
+        }
     },
     "socials": {
         "header": "Socials",
-        "socials_to_add_header": "Socials you can add"
+        "socials_to_add_header": "Socials you can add",
+        "connect_button": "Connect"
     }
 }

@@ -7,6 +7,12 @@
         "email": "Email"
     },
     "fields": {
+        "name": {
+            "header": "Name"
+        },
+        "birthday": {
+            "header": "Birthday"
+        },
         "password": {
             "header": "Password",
             "button_text": "Change Password"

@@ -4,7 +4,6 @@ import { UseFormReturn, SubmitHandler } from 'react-hook-form';
 import { HelperMessages, RegistrationSecondStepFormData } from '../../../../types';
 
 import InputField from '../../../../../../components/InputField';
-import Input from '../../../../../../components/Input';
 import Selection from '../../../../../../components/Selection';
 import SubmitButton from '../../../../../../components/SubmitButton';
 
@@ -22,13 +21,22 @@ type Props = {
         setHelperMessages: (value: React.SetStateAction<HelperMessages>) => void
     ): boolean;
     // Form Data
-    birthMonth: string | null;
-    handleMonthSelectChange: (e: React.MouseEvent<HTMLDivElement>) => void;
     handleCountrySelectChange: (e: React.MouseEvent<HTMLDivElement>) => void;
+    birthDate: {
+        month?: string;
+        day?: string;
+        year?: string;
+    } | null;
+    setBirthDate: React.Dispatch<React.SetStateAction<{
+        month?: string;
+        day?: string;
+        year?: string;
+    } | null>>;
     selectedCountry: {
         value: string;
         content: string;
     } | null;
+    handleBirthDateChange: (e: React.MouseEvent<HTMLDivElement | null, MouseEvent>, part: "month" | "day" | "year") => void;
     countryList: any;
 
     isLoading: boolean;
@@ -43,11 +51,11 @@ export default function SecondStepForm({
     onFocus,
     handleRegexInput,
 
-    birthMonth,
-    handleMonthSelectChange,
-    handleCountrySelectChange,
+    birthDate,
+    handleBirthDateChange,
     selectedCountry,
     countryList,
+    handleCountrySelectChange,
 
     isLoading,
     onSubmit
@@ -63,6 +71,7 @@ export default function SecondStepForm({
         >
             <InputField 
                 required
+                requiredHeader
                 headText={t('registration.registration.form.input_fields.username.header')}
                 inputType={'text'}
                 inputName={'username'}
@@ -84,6 +93,7 @@ export default function SecondStepForm({
             />
             <InputField 
                 required
+                requiredHeader
                 headText={t('registration.registration.form.input_fields.email.header')}
                 inputType={'email'}
                 inputName={'email'}
@@ -95,6 +105,7 @@ export default function SecondStepForm({
             />
             <InputField 
                 required
+                requiredHeader
                 headText={t('registration.registration.form.input_fields.password.header')}
                 inputType={'password'}
                 inputName={'password'}
@@ -111,31 +122,48 @@ export default function SecondStepForm({
             <div className='flex column margin-top-20'>
                 <span className={'bd-header'}>
                     {t('registration.registration.form.input_fields.birth_date.header')}
+                    <span className="margin-left-5 danger-color">*</span>
                 </span>
                 <div className={`bd-field-content-wrapper flex space-between`}>
                     <Selection 
                         selectClassName={'auth-selection'}
                         defaultValue={t('date.month', { ns: 'translation' })}
-                        selectedValue={birthMonth}
+                        selectedValue={birthDate?.month ? birthDate.month : null}
                         options={months}
                         optionsWrapperClassname={'auth-selection-wrapper'}
                         optionClassname={'auth-selection-option'}
-                        onOptionClick={handleMonthSelectChange}
+                        onOptionClick={(e) => handleBirthDateChange(e, 'month')}
                     />
                     <div className={`bd-field-inps-wrapper flex`}>
-                        <Input 
-                            required
-                            type='number'
-                            placeHolder={t('date.day', { ns: 'translation' })}
-                            {...methods.register('birthDay', { required: true })}
-                            className={`bd-input day`}
+                        <Selection 
+                            wrapperClassName='bd-day'
+                            selectClassName={'auth-selection bd-input day'}
+                            defaultValue={t('date.day', { ns: 'translation' })}
+                            selectedValue={birthDate?.day ? birthDate.day : null}
+                            options={[...Array(31)].map((_, i) => {
+                                return {
+                                    value: String(i + 1),
+                                    content: String(i + 1)
+                                };
+                            })}
+                            optionsWrapperClassname={'auth-selection-wrapper'}
+                            optionClassname={'auth-selection-option'}
+                            onOptionClick={(e) => handleBirthDateChange(e, 'day')}
                         />
-                        <Input
-                            required
-                            type='number'
-                            placeHolder={t('date.year', { ns: 'translation' })}
-                            {...methods.register('birthYear', { required: true })}
-                            className={`bd-input year`}
+                        <Selection 
+                            wrapperClassName='bd-year'
+                            selectClassName={'auth-selection bd-input year'}
+                            defaultValue={t('date.year', { ns: 'translation' })}
+                            selectedValue={birthDate?.year ? birthDate.year : null}
+                            options={[...Array(2024 - 1918 + 1)].map((_, i) => {
+                                return {
+                                    value: String(1918 + i),
+                                    content: String(1918 + i)
+                                };
+                            }).reverse()}
+                            optionsWrapperClassname={'auth-selection-wrapper'}
+                            optionClassname={'auth-selection-option'}
+                            onOptionClick={(e) => handleBirthDateChange(e, 'year')}
                         />
                     </div>
                 </div>
@@ -146,6 +174,7 @@ export default function SecondStepForm({
             <div className='flex column margin-top-20'>
                 <span className={'bd-header'}>
                     {t('registration.registration.form.input_fields.country.header')}
+                    <span className="margin-left-5 danger-color">*</span>
                 </span>
                 <Selection 
                     selectStyle={{ width: '100%' }}

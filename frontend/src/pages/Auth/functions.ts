@@ -163,7 +163,7 @@ export function validateBirthDate(
             setHelperMessages(prev => ({
                 ...prev,
                 birthDate: {
-                    text: t('registration.form.helper_texts.birth_date.error_texts.unreal'),
+                    text: t('registration.registration.form.helper_texts.birth_date.error_texts.unreal'),
                     danger: true
                 }
             }));
@@ -180,7 +180,7 @@ export function validateBirthDate(
             setHelperMessages(prev => ({
                 ...prev,
                 birthDate: {
-                    text: t('registration.form.helper_texts.birth_date.error_texts.invalid'),
+                    text: t('registration.registration.form.helper_texts.birth_date.error_texts.invalid'),
                     danger: true
                 }
             }));

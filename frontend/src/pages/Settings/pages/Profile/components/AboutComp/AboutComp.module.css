@@ -10,6 +10,7 @@
     color: var(--secondary-200);
 }
 .text-area {
+    width: 100%;
     height: 100%;
     padding: 10px 30px 10px 10px;
     border-radius: 6px;
@@ -20,6 +21,7 @@
     resize: none;
     background-color: var(--secondary-600);
     border: 1px solid var(--secondary-50);
+    transform: width 300ms;
 }
 .text-area::-webkit-scrollbar {
     width: 4px;
@@ -27,6 +29,14 @@
 .text-area::-webkit-scrollbar-thumb {
     background-color: var(--primary-500);
     border-radius: 6px;
+}
+.button {
+    height: 32px;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary-50);
 }
 
 @media (max-width: 1000px) {
