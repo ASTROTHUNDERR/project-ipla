@@ -1,0 +1,5 @@
+/static/user_content/*
+
+!placeholder
+
+./test.ts

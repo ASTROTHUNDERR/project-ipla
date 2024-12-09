@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import sequelize  from '../../../config/db';
 import { DataTypes, Model } from 'sequelize';
 
@@ -6,9 +7,10 @@ import UserProfileSocial from './userSocial';
 
 class UserProfile extends Model {
     declare id: number;
+    declare uuid: string;
     declare user_id: number;
-    declare banner_url: string;
-    declare avatar_url: string;
+    declare banner_path: string;
+    declare avatar_path: string;
     declare about: string;
     declare Socials?: UserProfileSocial[]; 
 
@@ -29,8 +31,8 @@ class UserProfile extends Model {
 
             const data = {
                 user_id: userProfile.user_id,
-                banner_url: userProfile.banner_url,
-                avatar_url: userProfile.avatar_url,
+                banner_path: userProfile.banner_path,
+                avatar_path: userProfile.avatar_path,
                 about: userProfile.about,
                 socials: userProfile.Socials?.map(social => ({
                     url: social.profile_url,
@@ -62,11 +64,11 @@ UserProfile.init(
             },
             onDelete: 'CASCADE',
         },
-        banner_url: {
+        banner_path: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        avatar_url: {
+        avatar_path: {
             type: DataTypes.STRING,
             allowNull: true,
         },
@@ -80,7 +82,13 @@ UserProfile.init(
     },
     {
         sequelize,
-        tableName: 'user_profiles'
+        tableName: 'user_profiles',
+        hooks: {
+            beforeCreate: async (userProfile: UserProfile) => {
+                const profileUUID = uuidv4();
+                userProfile.uuid = profileUUID;
+            }
+        }
     }
 );
 

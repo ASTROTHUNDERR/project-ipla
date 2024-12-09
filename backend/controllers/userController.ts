@@ -3,10 +3,11 @@ import crypto from 'crypto';
 import { authenticator } from 'otplib';
 import { z } from 'zod';
 import { Response } from 'express';
-import logger from '../config/logger';
 import { Sequelize, Op, fn, col } from 'sequelize';
 
+import logger from '../config/logger';
 import config from '../config/environment';
+import { profanity } from '../utils/profanity';
 import { sendEmail } from '../config/mail';
 import { compileHTMLFile } from '../utils/emailUtils';
 import { io } from '../server';
@@ -47,7 +48,10 @@ class Schemas {
         newUsername: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Username contains inappropriate words'
+            }),
     });
 
     static usernameChange2FA = z.object({
@@ -57,7 +61,10 @@ class Schemas {
         newUsername: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Username contains inappropriate words'
+            }),
     });
 
     static emailChangeRequest = z.object({

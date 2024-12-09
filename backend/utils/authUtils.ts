@@ -1,3 +1,4 @@
+import path from 'path';
 import jwt from 'jsonwebtoken';
 import countries from 'i18n-iso-countries';
 
@@ -62,4 +63,9 @@ export async function checkCountry(country: {
     const exists = countryList[country.value] ? countryList[country.value] === country.content : false;
     
     return exists;
+};
+
+export function isPathSafe(staticDir: string, requestedPath: string) {
+    const resolvedPath = path.resolve(staticDir, requestedPath);
+    return resolvedPath.startsWith(staticDir);
 };

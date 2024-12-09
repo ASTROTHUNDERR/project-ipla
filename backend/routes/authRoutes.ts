@@ -19,6 +19,11 @@ authRouter.post(
     AuthController.authorization2FA
 );
 authRouter.post(
+    '/register/first-step',
+    authRateLimit.apply(),
+    AuthController.registrationFirstStep
+);
+authRouter.post(
     '/register', 
     authRateLimit.apply(), 
     AuthController.registration

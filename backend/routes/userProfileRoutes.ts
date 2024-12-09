@@ -13,5 +13,23 @@ userProfileRouter.get(
     authenticateToken.authenticateToken, 
     UserProfileController.getUserProfileData
 );
+userProfileRouter.put(
+    '/update',
+    rateLimit.apply(),
+    authenticateToken.authenticateToken,
+    UserProfileController.updateUserProfile
+);
+userProfileRouter.delete(
+    '/remove-banner',
+    rateLimit.apply(),
+    authenticateToken.authenticateToken,
+    UserProfileController.removeProfileBanner
+);
+userProfileRouter.delete(
+    '/remove-avatar',
+    rateLimit.apply(),
+    authenticateToken.authenticateToken,
+    UserProfileController.removeProfileAvatar
+);
 
 export default userProfileRouter;

@@ -24,13 +24,13 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
-        unique: true,
+        unique: false,
       },
-      banner_url: {
+      banner_path: {
         type: Sequelize.STRING,
         allowNull: true
       },
-      avatar_url: {
+      avatar_path: {
         type: Sequelize.STRING,
         allowNull: true
       },

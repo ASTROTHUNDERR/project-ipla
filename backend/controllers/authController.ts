@@ -3,8 +3,10 @@ import { authenticator } from 'otplib';
 import QRCode from 'qrcode';
 import { Request, Response } from 'express';
 import { z } from 'zod';
-import logger from '../config/logger';
 import { Sequelize, Op, fn, col } from 'sequelize';
+
+import logger from '../config/logger';
+import { profanity } from '../utils/profanity';
 
 import { 
     User, 
@@ -38,18 +40,48 @@ class AuthSchemas {
         uid: z.number()
     });
 
+    static registrationFirstStepSchema = z.object({
+        firstName: z.string()
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'First name contains inappropriate words'
+            }),
+        lastName: z.string()
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Last name contains inappropriate words'
+            }),
+        nativeName: z.string()
+            .refine((value) => !profanity.exists(value), {
+                message: 'Native name contains inappropriate words'
+            })
+            .optional(),
+    });
+
     static registrationSchema = z.object({
         type: z.enum(['player', 'manager', 'team owner']),
         firstName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'First name contains inappropriate words'
+            }),
         lastName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Last name contains inappropriate words'
+            }),
         nativeName: z.string()
+            .refine((value) => !profanity.exists(value), {
+                message: 'Native name contains inappropriate words'
+            })
             .optional(),
         username: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Username contains inappropriate words'
+            }),
         email: z.string().email(),
         password: z.string()
             .min(8)
@@ -65,15 +97,27 @@ class AuthSchemas {
     static finishRegistrationPrimaryDataCheck = z.object({
         token: z.string(),
         firstName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'First name contains inappropriate words'
+            }),
         lastName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Last name contains inappropriate words'
+            }),
         nativeName: z.string()
+            .refine((value) => !profanity.exists(value), {
+                message: 'Native name contains inappropriate words'
+            })
             .optional(),
         username: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Username contains inappropriate words'
+            }),
         birthDate: z.string(),
         country: z.object({ 
             locale: z.enum(['en', 'ka']),
@@ -85,15 +129,27 @@ class AuthSchemas {
     static finishRegistration = z.object({
         token: z.string(),
         firstName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'First name contains inappropriate words'
+            }),
         lastName: z.string()
-            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid'),
+            .regex(/^[a-zA-Z\s'-]+$/, 'Invalid')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Last name contains inappropriate words'
+            }),
         nativeName: z.string()
+            .refine((value) => !profanity.exists(value), {
+                message: 'Native name contains inappropriate words'
+            })
             .optional(),
         username: z.string()
             .min(4)
             .max(14)
-            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+            .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+            .refine((value) => !profanity.exists(value), {
+                message: 'Username contains inappropriate words'
+            }),
         birthDate: z.string(),
         country: z.object({ 
             locale: z.enum(['en', 'ka']),
@@ -214,6 +270,21 @@ class AuthController {
             }
             logger.error(`AUTH: error caught at 'twoFactorAuthLoginCheck': ${String(error)}`);
             res.status(500).json({ errorMessage: 'Internal Server Error' }); 
+        }
+    }
+
+    static async registrationFirstStep(req: Request, res: Response) {
+        try {
+            AuthSchemas.registrationFirstStepSchema.parse(req.body);
+            
+            res.status(200).send('Data is valid');
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                res.status(400).json({ errors: error.errors });
+                return;
+            }
+            logger.error(`AUTH: error caught at 'registrationFirstStep': ${String(error)}`);
+            res.status(500).json({ errorMessage: 'Internal Server Error' });
         }
     }
 
