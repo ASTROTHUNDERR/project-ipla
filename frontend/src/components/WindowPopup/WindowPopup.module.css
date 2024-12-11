@@ -38,6 +38,6 @@
 @media (max-width: 500px) {
     .submit-wrapper {
         flex-direction: column;
-        gap: 5px;
+        gap: 10px;
     }
 }

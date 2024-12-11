@@ -1,6 +1,7 @@
 {
     "pages": {
         "account": "Account",
-        "profile": "Profile"
+        "profile": "Profile",
+        "billing": "Billing"
     }
 }

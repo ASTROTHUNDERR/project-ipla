@@ -1,0 +1,24 @@
+.follower-avatar-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.username {
+    font-size: 16px;
+    color: var(--secondary-50);
+}
+.follow-button {
+    height: 32px;
+    padding: 7px 15px;
+    font-size: 14px;
+    color: var(--secondary-50);
+    border-radius: 6px;
+    background-color: var(--secondary-400);
+    border: 1px solid var(--secondary-300);
+}
+.follow-button:hover {
+    background-color: var(--secondary-300);
+}

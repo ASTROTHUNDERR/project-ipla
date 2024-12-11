@@ -1,6 +1,7 @@
 {
     "pages": {
         "account": "ანგარიში",
-        "profile": "პროფილი"
+        "profile": "პროფილი",
+        "billing": "გადახდა"
     }
 }

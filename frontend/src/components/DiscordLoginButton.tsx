@@ -1,10 +1,13 @@
 import React from 'react';
 import Button from './Button';
+
+import { BASE_URL } from '../utils/api';
+
 import { ReactComponent as DiscordIcon } from '../assets/icons/brands/discord-mark-blue.svg';
 
 const DiscordLoginButton: React.FC = () => {
     const Login = () => {
-        window.location.href = `http://localhost:3011/api/auth/discord`;
+        window.location.href = `${BASE_URL}/api/auth/discord`;
     }
 
     return (

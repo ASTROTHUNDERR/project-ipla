@@ -43,7 +43,8 @@ class User extends Model {
                         name: role.name,
                     })),
                     tfa_enabled: has2FA ? true : false,
-                    is_deleted: user.is_deleted
+                    is_deleted: user.is_deleted,
+                    created_at: user.getDataValue('createdAt')
                 }
                 
                 return userData

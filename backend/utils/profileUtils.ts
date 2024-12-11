@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
+import axios from 'axios';
 
 import logger from '../config/logger';
 
@@ -51,5 +52,31 @@ export async function deleteFile(filePath: string) {
         logger.info(`File at ${filePath} deleted successfully.`);
     } catch (error) {
         logger.error('Error deleting image: ', error);
+    }
+};
+
+export async function getYouTubeChannelLink(accessToken: string): Promise<string | null> {
+    try {
+        const response = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+                part: 'snippet',
+                mine: 'true',
+            },
+        });
+
+        const channels = response.data.items;
+        if (channels && channels.length > 0) {
+            const channel = channels[0];
+            const channelId = channel.id;
+            
+            return `https://www.youtube.com/channel/${channelId}`;
+        }
+        return null;
+    } catch (error) {
+        logger.error('Error fetching YouTube channel data: ', error);
+        return null;
     }
 };

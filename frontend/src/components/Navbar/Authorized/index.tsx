@@ -25,11 +25,9 @@ export default function AuthorizedNavbar() {
     useEffect(() => {
         async function fetchUserProfileData() {
             if (user) {
-                const response = await getUserProfileData(user.id);
+                const response = await getUserProfileData(user.username);
 
-                if (response.error) {
-                    window.location.href = '/';
-                } else {
+                if (!response.error) {
                     setUserProfileData(response.data);
                 }
             }

@@ -37,7 +37,7 @@ export default function WindowPopup({
     onFormSubmit,
 }: Props) {
     return (
-        <div className='z-1 absolute flex items-center content-center' style={WindowCSSProperties}>
+        <div className='z-1 fixed flex items-center content-center' style={WindowCSSProperties}>
             <div className={`${styles['window']} flex column`} style={{ width }}>
                 <header className={styles['header']}>
                     {header}

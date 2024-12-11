@@ -1,6 +1,7 @@
 import styles from '../SocialsComp.module.css';
 import { useTranslation } from 'react-i18next';
 
+import { BASE_URL } from '../../../../../../../utils/api';
 import { Social } from '../../../../../types';
 
 import YouTubeLogo from '../../../../../../../assets/socials/youtube_social_icon_red.png';
@@ -18,19 +19,23 @@ const ALL_SOCIALS = [
 const socialIcons = {
     yt: {
         logo: YouTubeLogo,
-        name: 'YouTube'
-    },
-    ig: {
-        logo: InstagramLogo,
-        name: 'Instagram'
+        name: 'YouTube',
+        value: 'yt'
     },
     fb: {
         logo: FacebookLogo,
-        name: 'Facebook'
+        name: 'Facebook',
+        value: 'fb'
+    },
+    ig: {
+        logo: InstagramLogo,
+        name: 'Instagram',
+        value: 'ig'
     },
     x: {
         logo: XLogo,
-        name: 'X'
+        name: 'X',
+        value: 'x'
     }
 }
 
@@ -63,6 +68,11 @@ export default function SocialsContent({
                                 key={index}
                                 icon={social.logo}
                                 name={social.name}
+                                redirectUrl={
+                                    social.value === 'yt' 
+                                        ? `${BASE_URL}/api/auth/youtube`
+                                        : ''
+                                }
                             />
                         )) }
                     </div>

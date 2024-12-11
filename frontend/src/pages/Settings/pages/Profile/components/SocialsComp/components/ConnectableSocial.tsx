@@ -6,11 +6,13 @@ import Button from '../../../../../../../components/Button';
 type Props = {
     icon: string;
     name: string;
+    redirectUrl: string;
 }
 
 export default function ConnectableSocial({
     icon,
-    name
+    name,
+    redirectUrl
 }: Props) {
     const { t } = useTranslation('settings');
 
@@ -29,6 +31,7 @@ export default function ConnectableSocial({
             <Button 
                 innerElement={t('profile.socials.connect_button')}
                 className={`${styles['social-add-btn']} flex items-center content-center`}
+                onClick={() =>  window.open(redirectUrl, 'authWindow', 'width=800, height=800')}
             />
         </div>
     )

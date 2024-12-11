@@ -119,9 +119,9 @@ export async function protectedApiRequest<
     return null;
 };
 
-export async function getUserProfileData(userId: number) {
+export async function getUserProfileData(username: string) {
     try {
-        const response = await protectedApiRequest(API.get, `/user-profile/${userId}`, 'GET');
+        const response = await protectedApiRequest(API.get, `/user-profile/${username}`, 'GET');
         return { data: response?.data, error: null };
     } catch (err) {
         const error = err as AxiosError;

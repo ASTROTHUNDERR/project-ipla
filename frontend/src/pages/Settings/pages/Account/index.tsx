@@ -1,11 +1,9 @@
 import styles from './Account.module.css';
-
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../../context/AuthProvider';
-import { useApi } from '../../../../context/ApiProvider';
 
-import { BASE_URL } from '../../../../utils/api';
+import { BASE_URL, getUserProfileData } from '../../../../utils/api';
 import { SAWindowPopupState } from '../../types';
 import { UserProfile } from '../../../../utils/types';
 import { formatReadableDate } from '../../../../utils/functions';
@@ -24,15 +22,14 @@ import SettingsAccountEmailChangePopup from './components/AECPopup';
 export default function SettingsAccount() {
     const { t } = useTranslation(['settings', 'auth']);
     const { user } = useAuth();
-    const { protectedGetRequest } = useApi();
 
     const [userProfileData, setUserProfileData] = useState<UserProfile | null>(null);
     const [windowPopupState, setWindowPopupState] = useState<SAWindowPopupState | null>(null);
 
     useEffect(() => {
-        async function getUserProfileData() {
+        async function fetchProfileData() {
             if (user) {
-                const response = await protectedGetRequest(`/user-profile/${user.id}`);
+                const response = await getUserProfileData(user.username);
 
                 if (response.error) {
                     window.location.href = '/';
@@ -41,7 +38,7 @@ export default function SettingsAccount() {
                 }
             }
         }
-        getUserProfileData();
+        fetchProfileData();
         // eslint-disable-next-line
     }, []);
 
@@ -94,6 +91,19 @@ export default function SettingsAccount() {
                             }
                             userData={user}
                         />
+                        <div className={`${styles['secondary-info-wrapper']} ${styles['hidden']}`}>
+                            <SettingsField
+                                secondary
+                                headerText={t('account.fields.name.header')}
+                                content={`${user.first_name} ${user.last_name}`}
+                            />
+                            <SettingsField
+                                secondary
+                                additionalClassname='margin-top-30'
+                                headerText={t('account.fields.birthday.header')}
+                                content={formatReadableDate(String(user.birthDate), 'long')}
+                            />
+                        </div>
                         <div className={`${styles['upper-right-wrapper']} flex column space-between`}>
                             <SAInfoCard 
                                 part='username'
@@ -110,18 +120,20 @@ export default function SettingsAccount() {
                             />
                         </div>
                     </div>
-                    <SettingsField
-                        secondary
-                        additionalClassname='margin-top-30'
-                        headerText={t('account.fields.name.header')}
-                        content={`${user.first_name} ${user.last_name}`}
-                    />
-                    <SettingsField
-                        secondary
-                        additionalClassname='margin-top-30'
-                        headerText={t('account.fields.birthday.header')}
-                        content={formatReadableDate(user.birthDate)}
-                    />
+                    <div className={styles['secondary-info-wrapper']}>
+                        <SettingsField
+                            secondary
+                            additionalClassname='margin-top-30'
+                            headerText={t('account.fields.name.header')}
+                            content={`${user.first_name} ${user.last_name}`}
+                        />
+                        <SettingsField
+                            secondary
+                            additionalClassname='margin-top-30'
+                            headerText={t('account.fields.birthday.header')}
+                            content={formatReadableDate(String(user.birthDate), 'long')}
+                        />
+                    </div>
                     { !user.authProvider && (
                         <SettingsField
                             additionalClassname='margin-top-30'

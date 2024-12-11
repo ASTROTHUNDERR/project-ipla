@@ -2,9 +2,10 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import { Response } from 'express';
-import logger from '../config/logger';
+import { Sequelize, Op, fn, col } from 'sequelize';
 
-import { UserProfile, UserProfileSocial } from '../db/models/UserProfile';
+import logger from '../config/logger';
+import { User, UserProfile, Follower } from '../db/models';
 
 import { AuthenticatedRequest } from '../utils/types';
 import { processAndSaveImage, deleteFile } from '../utils/profileUtils';
@@ -25,27 +26,56 @@ class Schemas {
             })
             .optional(),
     });
+
+    static followUser = z.object({
+        second_person_username: z.string(),
+        method: z.enum(['follow', 'unfollow'])
+    });
+
+    static getFollowers = z.object({
+        username: z.string(),
+    });
+
+    static getFollowerUsersData = z.object({
+        userProfileUsername: z.string(),
+        part: z.enum(['followers', 'followings']),
+        start: z.number(),
+        limit: z.number()
+    });
 }
 
 class UserProfileController {
     static async getUserProfileData(req: AuthenticatedRequest, res: Response) {
         try {
             if (req.currentUser) {
-                const { userId } = req.params;
+                const { username } = req.params;
 
-                const userProfile = await UserProfile.findOne({ where: {
-                    user_id: parseInt(userId)
-                } });
+                const user = await User.findOne({
+                    where: {
+                        [Op.and]: [
+                            Sequelize.where(fn('LOWER', col('username')), username.toLowerCase())
+                        ] 
+                    }
+                });
 
-                if (!userProfile) {
-                    res.status(404).send('User profile not found');
+                if (user) {
+                    const userProfile = await UserProfile.findOne({ where: {
+                        user_id: user.id
+                    } });
+    
+                    if (!userProfile) {
+                        res.status(404).send('User profile not found');
+                        return;
+                    }
+    
+                    const userProfileData = await UserProfile.getData(user.id);
+                    
+                    res.status(200).send(userProfileData);
+                    return;
+                } else {
+                    res.status(404).send('User not found');
                     return;
                 }
-
-                const userProfileData = await UserProfile.getData(parseInt(userId));
-                
-                res.status(200).send(userProfileData);
-                return;
             } else {
                 res.status(401).send('Not authorized');
                 return;
@@ -229,6 +259,150 @@ class UserProfileController {
             res.status(500).json({ message: 'Internal Server Error' });
         }
     }
-}
+
+    static async followUser(req: AuthenticatedRequest, res: Response) {
+        try {
+            if (req.currentUser) {
+                const validatedData = Schemas.followUser.parse(req.body);
+                const { second_person_username, method } = validatedData;
+
+                const secondUser = await User.findOne({
+                    where:  {
+                        [Op.and]: [
+                            Sequelize.where(fn('LOWER', col('username')), second_person_username.toLowerCase())
+                        ] 
+                    }
+                });
+
+                if (secondUser) {
+                    if (req.currentUser.id === secondUser.id) {
+                        res.status(400).send('You can not follow yourself');
+                        return;
+                    }   
+
+                    const currentUserProfile = await UserProfile.findOne({
+                        where: { user_id: req.currentUser.id }
+                    });
+                    const secondUserProfile = await UserProfile.findOne({
+                        where: { user_id: secondUser.id }
+                    });
+
+                    if (currentUserProfile && secondUserProfile) {
+                        if (method === 'follow') {
+                            await Follower.create({
+                                follower_user_id: currentUserProfile.id,
+                                following_user_id: secondUserProfile.id
+                            });
+
+                            const followersData = await Follower.getFollowersData(req.currentUser.id, secondUserProfile.id);
+
+                            res.status(200).send(followersData);
+                            return;
+                        } else {
+                            const followerObject = await Follower.findOne({
+                                where: {
+                                    follower_user_id: currentUserProfile.id,
+                                    following_user_id: secondUserProfile.id
+                                }
+                            });
+
+                            if (!followerObject) {
+                                res.status(404).send('You are not following the user');
+                                return;
+                            }
+
+                            await followerObject.destroy();
+
+                            const followersData = await Follower.getFollowersData(req.currentUser.id, secondUserProfile.id);
+
+                            res.status(200).send(followersData);
+                            return;
+                        }
+                    } else {
+                        res.status(404).send('Profile(s) not found');
+                        return;
+                    }
+                } else {
+                    res.status(404).send('User not found');
+                    return;
+                }
+            } else {
+                res.status(401).send('Not authorized');
+                return;
+            }
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                res.status(400).json({ errors: error.errors });
+                return;
+            }
+            logger.error(`USER PROFLE: error caught at 'followUser': ${String(error)}`);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
+    static async getFollowers(req: AuthenticatedRequest, res: Response) {
+        try {
+            if (req.currentUser) {
+                const validatedData = Schemas.getFollowers.parse(req.body);
+                const { username } = validatedData;
+
+                const user = await User.findOne({
+                    where:  {
+                        [Op.and]: [
+                            Sequelize.where(fn('LOWER', col('username')), username.toLowerCase())
+                        ] 
+                    }
+                });
+
+                if (user) {
+                    const followersData = await Follower.getFollowersData(req.currentUser.id, user.id);
+
+                    res.status(200).send(followersData);
+                    return;
+                } else {
+                    res.status(404).send('User not found');
+                    return;
+                }
+            } else {
+                res.status(401).send('Not authorized');
+                return;
+            }
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                res.status(400).json({ errors: error.errors });
+                return;
+            }
+            logger.error(`USER PROFLE: error caught at 'getFollowers': ${String(error)}`);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
+    static async getFollowersData(req: AuthenticatedRequest, res: Response) {
+        try {
+            if (req.currentUser) {
+                const validatedData = Schemas.getFollowerUsersData.parse(req.body);
+                const { userProfileUsername, part, start, limit } = validatedData;
+    
+    
+                const followerUsersData = await Follower.getFollowerUserData(
+                    req.currentUser.id, userProfileUsername, part, start, limit
+                );
+    
+                res.status(200).send(followerUsersData);
+                return;
+            } else {
+                res.status(401).send('Not authorized');
+                return;
+            }
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                res.status(400).json({ errors: error.errors });
+                return;
+            }
+            logger.error(`USER PROFLE: error caught at 'getFollowerUserData': ${String(error)}`);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+} 
 
 export default UserProfileController;

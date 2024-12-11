@@ -1,0 +1,24 @@
+{
+    "head": {
+        "followers": "გამომწერები",
+        "followings": "გამოწერილები",
+        "member_since": "წევრია ამ პერიოდიდან",
+        "follow_button": {
+            "unfollow": "გამოწერის გაუქმება",
+            "follow": "გამოწერა"
+        }
+    },
+    "tabs": {
+        "transfers": "ტრანსფერები",
+        "followers": "გამომწერები",
+        "followings": "გამოწერილები"
+    },
+    "left_side": {
+        "about": {
+            "header": "შესახებ"
+        }
+    },
+    "helper_texts": {
+        "profile_link_copied": "პროფილის URL დაკოპირდა ბუფერში"
+    }
+}

@@ -1,7 +1,9 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as DiscordStrategy } from 'passport-discord';
+
 import { User, AuthProvider } from '../db/models';
+import { getYouTubeChannelLink } from '../utils/profileUtils';
 
 passport.use(
     new GoogleStrategy(

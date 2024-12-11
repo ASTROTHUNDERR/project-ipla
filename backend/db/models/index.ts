@@ -4,7 +4,7 @@ import { Role, UserRole } from './Role';
 import PasswordReset from './Temporaries/passwordReset';
 import EmailChangeVerification from './Temporaries/emailChangeVerification';
 
-import { UserProfile, UserProfileSocial } from './UserProfile';
+import { UserProfile, UserProfileSocial, Follower } from './UserProfile';
 
 User.belongsToMany(Role, { through: UserRole, foreignKey: 'user_id', onDelete: 'CASCADE' });
 Role.belongsToMany(User, { through: UserRole, foreignKey: 'role_id', onDelete: 'CASCADE' });
@@ -33,6 +33,24 @@ UserProfile.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 UserProfile.hasMany(UserProfileSocial, { foreignKey: 'user_profile_id', onDelete: 'CASCADE', as: 'Socials' });
 UserProfileSocial.belongsTo(UserProfile, { foreignKey: 'user_profile_id', onDelete: 'CASCADE' });
 
+UserProfile.hasMany(Follower, {
+    foreignKey: 'follower_user_id',
+    as: 'Followers',
+});
+UserProfile.hasMany(Follower, {
+    foreignKey: 'following_user_id',
+    as: 'Followings'
+});
+
+Follower.belongsTo(UserProfile, {
+    foreignKey: 'follower_user_id',
+    as: 'FollowerUser',
+});
+Follower.belongsTo(UserProfile, {
+    foreignKey: 'following_user_id',
+    as: 'FollowingUser',
+});
+
 async function syncModels() {
     try {
         await sequelize.sync();
@@ -46,7 +64,7 @@ async function syncModels() {
 export { 
     sequelize, syncModels,
     User, AuthProvider, AuthProviderHold, 
-    UserProfile, UserProfileSocial,
+    UserProfile, UserProfileSocial, Follower,
     DeletedUser,
     TwoFactorAuthHold, TwoFactorAuthenticator,
     Role, UserRole,

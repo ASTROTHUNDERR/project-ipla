@@ -10,19 +10,22 @@ import SettingsNavbar from './components/Navbar';
 
 import SettingsAccount from './pages/Account';
 import SettingsProfile from './pages/Profile';
+import SettingsBilling from './pages/Billing';
 
-const PAGES = [
-    'account', 'profile'
-]
+type Pages = 'account' | 'profile' | 'billing';
+
+function isPage(value: string | undefined): value is Pages {
+    return value === 'account' || value === 'profile' || value === 'billing';
+}
 
 export default function Settings() {
     const navigate = useNavigate();
-    const { page } = useParams();
+    const { page } = useParams<{ page?: Pages }>();
     const { infoData } = useGeneral();
 
     useEffect(() => {
         if (page) {
-            if (!PAGES.includes(page)) {
+            if (!isPage(page)) {
                 navigate('/');
                 return;
             }
@@ -37,18 +40,19 @@ export default function Settings() {
         <>
             <AuthorizedNavbar />
             <div className='flex items-center content-center'>
-                <main className='settings-main-wrapper'>
+                <main className='main-wrapper'>
                     <SettingsNavbar 
                         currentPage={page}
                     />
                     { page && (
                         <>
-                            {page === 'account' && (
+                            {page === 'account' ? (
                                 <SettingsAccount />
-                            )}
-                            {page === 'profile' && (
+                            ) : page === 'profile' ? (
                                 <SettingsProfile />
-                            )}
+                            ) : page === 'billing' && (
+                                <SettingsBilling />
+                            ) }
                         </>
                     ) }
                     { infoData && (

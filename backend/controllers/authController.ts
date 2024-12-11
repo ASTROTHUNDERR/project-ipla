@@ -16,7 +16,8 @@ import {
     AuthProvider, 
     TwoFactorAuthHold, 
     TwoFactorAuthenticator,
-    DeletedUser
+    DeletedUser,
+    // UserProfileSocial,
 } from '../db/models';
 import { AuthenticatedRequest } from '../utils/types';
 import { 
@@ -603,6 +604,16 @@ class AuthController {
 
         res.redirect(`${process.env.FRONTEND_URL}/auth?accessToken=${accessToken}&refreshToken=${refreshToken}`);
     }
+
+    // static async youtubeAuthCallback(req: Request, res: Response) {
+    //     const { link } = req.user as { link: string | null };
+
+    //     if (link) {
+    //         res.status(200).json({ success: true, youtubeLink: link });
+    //     } else {
+    //         res.status(400).json({ success: false, message: 'YouTube channel link not found' });
+    //     }
+    // }
 
     static async twoFactorAuthenticationQRCode(req: AuthenticatedRequest, res: Response) {
         try {

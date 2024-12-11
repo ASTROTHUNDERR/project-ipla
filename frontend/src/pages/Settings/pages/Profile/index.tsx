@@ -13,7 +13,6 @@ import { onImageSet } from './functions';
 import SettingsProfileBannerComp from './components/BannerComp';
 import SettingsProfileAvatarComp from './components/AvatarComp';
 import SettingsProfileAboutComp from './components/AboutComp';
-import SettingsProfileSocialsComp from './components/SocialsComp';
 
 import WindowPopup from '../../../../components/WindowPopup';
 import ImageCrop from '../../../../components/ImageCrop';
@@ -32,7 +31,7 @@ export default function SettingsProfile() {
     useEffect(() => {
         async function fetchUserProfileData() {
             if (user) {
-                const response = await getUserProfileData(user.id);
+                const response = await getUserProfileData(user.username);
 
                 if (response.error) {
                     window.location.href = '/';
@@ -114,9 +113,6 @@ export default function SettingsProfile() {
                             }
                         />
                     </div>
-                    <SettingsProfileSocialsComp
-                        socials={userProfileData.socials}
-                    />
                 </>
             ) }
         </div>

@@ -1,3 +1,7 @@
+.secondary-info-wrapper.hidden {
+    display: none;
+}
+
 @media (max-width: 1000px) {
     .upper-wrapper {
         gap: 30px;
@@ -5,5 +9,11 @@
     }
     .upper-right-wrapper {
         gap: 15px;
+    }
+    .secondary-info-wrapper {
+        display: none;
+    }
+    .secondary-info-wrapper.hidden {
+        display: block;
     }
 }

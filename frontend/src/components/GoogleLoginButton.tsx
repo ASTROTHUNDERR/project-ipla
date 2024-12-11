@@ -1,10 +1,13 @@
 import React from 'react';
 import Button from './Button';
+
+import { BASE_URL } from '../utils/api';
+
 import { ReactComponent as GoogleIcon } from '../assets/icons/brands/google-icon-logo.svg';
 
 const GoogleLoginButton: React.FC = () => {
     const Login = () => {
-        window.location.href = `http://localhost:3011/api/auth/google`;
+        window.location.href = `${BASE_URL}/api/auth/google`;
     }
 
     return (

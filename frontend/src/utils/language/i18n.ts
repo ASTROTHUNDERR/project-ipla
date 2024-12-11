@@ -28,10 +28,17 @@ import sidebarKA from '../../locales/ka/sidebar.json';
 import settingsEN from '../../locales/en/settings/general.json';
 import settingsAccountEN from '../../locales/en/settings/account.json';
 import settingsProfileEN from '../../locales/en/settings/profile.json';
+import settingsBillingEN from '../../locales/en/settings/billing.json';
 
 import settingsKA from '../../locales/ka/settings/general.json';
 import settingsAccountKA from '../../locales/ka/settings/account.json';
 import settingsProfileKA from '../../locales/ka/settings/profile.json';
+import settingsBillingKA from '../../locales/ka/settings/billing.json';
+
+import profileEN from '../../locales/en/profile/general.json';
+
+import profileKA from '../../locales/ka/profile/general.json';
+
 
 const resources = {
     en: { 
@@ -49,8 +56,12 @@ const resources = {
         settings: {
             general: settingsEN,
             account: settingsAccountEN,
-            profile: settingsProfileEN
+            profile: settingsProfileEN,
+            billing: settingsBillingEN
         },
+        profile: {
+            general: profileEN
+        }
     },
     ka: { 
         translation: generalKA,
@@ -67,7 +78,11 @@ const resources = {
         settings: {
             general: settingsKA,
             account: settingsAccountKA,
-            profile: settingsProfileKA
+            profile: settingsProfileKA,
+            billing: settingsBillingKA
+        },
+        profile: {
+            general: profileKA
         }
     },
 };

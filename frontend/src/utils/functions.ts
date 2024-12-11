@@ -9,8 +9,8 @@ export function blobToBase64(blob: Blob): Promise<string> {
     });
 };
 
-export function formatReadableDate(passedDate: Date): string {
+export function formatReadableDate(passedDate: string, monthLength: "numeric" | "2-digit" | "long" | "short" | "narrow"): string {
     const date = new Date(passedDate);
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: monthLength, day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 };

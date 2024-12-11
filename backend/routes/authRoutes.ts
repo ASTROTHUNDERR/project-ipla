@@ -72,6 +72,16 @@ authRouter.get(
     AuthController.discordAuthCallback
 );
 
+// authRouter.get(
+//     '/youtube', 
+//     passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/youtube.readonly'] }),
+// );
+// authRouter.get(
+//     '/youtube/callback', 
+//     passport.authenticate('google', { session: false }), 
+//     AuthController.youtubeAuthCallback
+// );
+
 authRouter.post(
     '/2fa/check',
     refreshAndDataRateLimit.apply(), 

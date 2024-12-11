@@ -26,6 +26,12 @@ export default function SettingsNavbar({
             >
                 <span>{t('general.pages.profile')}</span>
             </div>
+            <div 
+                className={`${styles['tab']} ${currentPage === 'billing' ? styles['selected'] : ''}`}
+                onClick={() => navigate('/settings/billing')}
+            >
+                <span>{t('general.pages.billing')}</span>
+            </div>
         </nav>
     )
 };

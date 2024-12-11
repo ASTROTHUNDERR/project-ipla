@@ -65,6 +65,17 @@
     --success-800: #1e7436;
     --success-900: #17582a;
 
+    --warning-50: #fbf9eb;
+    --warning-100: #f1edc1;
+    --warning-200: #eae4a3;
+    --warning-300: #e1d879;
+    --warning-400: #dbd15f;
+    --warning-500: #d2c537;
+    --warning-600: #bfb332;
+    --warning-700: #958c27;
+    --warning-800: #746c1e;
+    --warning-900: #585317;
+
     --additional-400: #2b2b2b;
     --additional-500: #242424;
 }
@@ -136,6 +147,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .absolute {
     position: absolute;
+}
+.fixed {
+    position: fixed;
 }
 .row {
     flex-direction: row;
@@ -255,6 +269,12 @@ input[type="number"]::-webkit-inner-spin-button {
 .full-height {
     height: 100%;
 }
+.main-wrapper {
+    width: 900px;
+    padding: 20px;
+    min-width: 300px;
+    transition: width 300ms;
+}
 .main-content {
     width: 100%;
     height: 100dvh;
@@ -312,4 +332,11 @@ button.danger {
 }
 button.danger:hover {
     background-color: var(--danger-400) !important;
+}
+
+
+@media (max-width: 600px) {
+    .main-wrapper {
+        padding: 15px;
+    }
 }

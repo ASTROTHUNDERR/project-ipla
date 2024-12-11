@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useLanguageContext } from '../context/LanguageProvider';
+import { ProfileProvider } from '../context/ProfileProvider';
 
 import ProtectedRoute from '../components/ProtectedRoute';
 
@@ -16,6 +17,7 @@ import EmailChangeVerifyNew from '../pages/Auth/EmailChange/VerifyNewEmail';
 
 import Home from '../pages/Home';
 import Settings from '../pages/Settings';
+import Profile from '../pages/Profile';
 
 import Support from '../pages/Support';
 
@@ -46,6 +48,14 @@ export default function AppRoutes() {
                 <Route path={`${prefix}`} element={<Home />} />
                 <Route path={`${prefix}/settings`} element={<Settings />} />
                 <Route path={`${prefix}/settings/:page`} element={<Settings />} />
+                <Route 
+                    path={`${prefix}/profile/:username`} 
+                    element={
+                        <ProfileProvider>
+                            <Profile />
+                        </ProfileProvider>
+                    } 
+                />
 
                 <Route path={`${prefix}/verify-email-change`} element={<EmailChangeVerification />} />
                 <Route path={`${prefix}/verify-new-email`} element={<EmailChangeVerifyNew />} />

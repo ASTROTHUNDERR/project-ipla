@@ -1,0 +1,24 @@
+{
+    "head": {
+        "followers": "Followers",
+        "followings": "Followings",
+        "member_since": "Member since",
+        "follow_button": {
+            "unfollow": "Unfollow",
+            "follow": "Follow"
+        }
+    },
+    "tabs": {
+        "transfers": "Transfers",
+        "followers": "Followers",
+        "followings": "Followings"
+    },
+    "left_side": {
+        "about": {
+            "header": "About"
+        }
+    },
+    "helper_texts": {
+        "profile_link_copied": "Profile URL was copied to clipboard"
+    }
+}

@@ -132,7 +132,7 @@ const ImageCrop: React.FC<Props> = ({
 
     return (
         <div className='z-1 absolute flex content-center full-size' style={{ left: 0, top: 0 }} >
-            <div ref={mainRef} className={`${styles['window']} flex column`}>
+            <div ref={mainRef} className={`${styles['window']} fixed flex column`}>
                 <header className={`${styles['header']} flex items-center space-between`}>
                     <span>{windowTitle}</span>
                     <Button 

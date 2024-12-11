@@ -7,7 +7,7 @@
     z-index: 1;
     font-family: var(--font);
     overflow: hidden;
-    position: fixed;
+    transform: width 300ms;
 }
 .header {
     padding: 20px 20px 15px 20px;
@@ -45,4 +45,15 @@
     font-weight: 500;
     color: var(--secondary-50);
     border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+    .window {
+        width: 400px;
+    }
+}
+@media (max-width: 400px) {
+    .window {
+        width: 100%;
+    }
 }

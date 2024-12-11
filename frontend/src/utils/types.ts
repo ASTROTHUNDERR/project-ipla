@@ -22,6 +22,7 @@ export interface User {
         provider: string;
     };
     tfa_enabled: boolean;
+    created_at: string;
 };
 
 export const TFAFormSchema = z.object({
@@ -31,7 +32,8 @@ export const TFAFormSchema = z.object({
 });
 
 export interface UserProfile {
-    user_id: number;
+    username: string;
+    type: 'player' | 'manager' | 'team_owner';
     banner_path?: string;
     avatar_path?: string;
     about?: string;
@@ -39,5 +41,5 @@ export interface UserProfile {
         url: string;
         nickname: string;
         provider: 'yt' | 'fb' | 'ig' | 'x';
-    }[]
+    }[];
 };

@@ -4,6 +4,7 @@ import { DataTypes, Model } from 'sequelize';
 
 import User from '../User/user';
 import UserProfileSocial from './userSocial';
+import Follower from './follower';
 
 class UserProfile extends Model {
     declare id: number;
@@ -12,17 +13,27 @@ class UserProfile extends Model {
     declare banner_path: string;
     declare avatar_path: string;
     declare about: string;
+    declare User: User;
     declare Socials?: UserProfileSocial[]; 
+    declare Followers?: Follower;
+    declare Followings?: Follower;
 
     static async getData(userId: number) {
         try {
             const userProfile = await UserProfile.findOne({
                 where: { user_id: userId },
-                include: {
-                    model: UserProfileSocial,
-                    as: 'Socials',
-                    required: false
-                }
+                include: [
+                    {
+                        model: UserProfileSocial,
+                        as: 'Socials',
+                        required: false,
+                    },
+                    {
+                        model: User,
+                        as: 'User',
+                        required: true
+                    }
+                ]
             });
 
             if (!userProfile) {
@@ -30,7 +41,8 @@ class UserProfile extends Model {
             }
 
             const data = {
-                user_id: userProfile.user_id,
+                username: userProfile.User.username,
+                type: userProfile.User.type,
                 banner_path: userProfile.banner_path,
                 avatar_path: userProfile.avatar_path,
                 about: userProfile.about,
@@ -38,11 +50,12 @@ class UserProfile extends Model {
                     url: social.profile_url,
                     nickname: social.profile_nickname,
                     provider: social.provider
-                }))
+                })),
             }
 
             return data;
         } catch (error) {
+            console.log(error)
             return null;
         }
     }

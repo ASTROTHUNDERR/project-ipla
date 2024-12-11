@@ -1,0 +1,16 @@
+.head {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--secondary-50);
+    padding-bottom: 5px;
+}
+.edit-button {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: var(--secondary-400);
+}
+.edit-button:hover {
+    background-color: var(--secondary-300);
+}

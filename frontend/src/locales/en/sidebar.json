@@ -1,8 +1,8 @@
 {
     "options": {
         "view_profile": "View Profile",
-        "your_teams": "Your Teams",
-        "your_wallet": "Your Wallet",
+        "your_teams": "My Teams",
+        "your_wallet": "My Wallet",
         "account_settings": "Account Settings",
         "profile_settings": "Profile Settings",
         "game_settings": "Game Settings",
