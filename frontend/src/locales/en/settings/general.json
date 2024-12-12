@@ -1,7 +1,7 @@
 {
-    "pages": {
-        "account": "Account",
-        "profile": "Profile",
-        "billing": "Billing"
-    }
+    "pages": [
+        { "id": "account", "value": "Account" },
+        { "id": "profile", "value": "Profile" },
+        { "id": "billing", "value": "Billing" }
+    ]
 }

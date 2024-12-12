@@ -41,11 +41,11 @@ export default function Settings() {
             <AuthorizedNavbar />
             <div className='flex items-center content-center'>
                 <main className='main-wrapper'>
-                    <SettingsNavbar 
-                        currentPage={page}
-                    />
                     { page && (
                         <>
+                            <SettingsNavbar 
+                                currentPage={page}
+                            />
                             {page === 'account' ? (
                                 <SettingsAccount />
                             ) : page === 'profile' ? (

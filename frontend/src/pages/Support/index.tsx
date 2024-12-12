@@ -43,7 +43,7 @@ function Support() {
                     <SupportCard 
                         header={t('cards.discord.header')}
                         description={t('cards.discord.description')}
-                        link='/discord'
+                        link='https://discord.gg/m2UJBaB4Hz'
                         buttonText={t('cards.discord.button_text')}
                         iconData={{
                             Icon: DiscordIconSVG,

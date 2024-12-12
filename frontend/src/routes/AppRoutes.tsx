@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useLanguageContext } from '../context/LanguageProvider';
 import { ProfileProvider } from '../context/ProfileProvider';
@@ -20,14 +19,6 @@ import Settings from '../pages/Settings';
 import Profile from '../pages/Profile';
 
 import Support from '../pages/Support';
-
-function ExternalRedirect({ url }: { url: string }) {
-    React.useEffect(() => {
-      window.location.href = url;
-    }, [url]);
-  
-    return null;
-};
 
 export default function AppRoutes() {
     const { language } = useLanguageContext();
@@ -63,7 +54,6 @@ export default function AppRoutes() {
 
             <Route path={`${prefix}/support`} element={<Support />} />
 
-            <Route path='/discord' element={<ExternalRedirect url='https://discord.gg/m2UJBaB4Hz' />} />
             <Route path='/notfound' element={<NotFoundPage />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>

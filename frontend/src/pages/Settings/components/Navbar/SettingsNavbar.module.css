@@ -12,7 +12,9 @@
     border-radius: 6px;
     background-color: var(--primary-500);
 }
-
+.navbar-wide-wrapper {
+    width: 100%;
+}
 .tab {
     padding: 12px 25px;
     color: var(--secondary-50);
@@ -28,4 +30,90 @@
 }
 .tab:hover {
     background-color: #2b2828;
+}
+.navbar-small-wrapper {
+    display: none;
+    border-radius: 6px;
+    border: 1px solid var(--secondary-400);
+    max-height: 54px;
+}
+.navbar-small-wrapper.expand {
+    animation: expand 300ms ease-in forwards; 
+}
+.navbar-small-wrapper.collapse {
+    animation: collapse 260ms ease-out forwards;  
+}
+@keyframes expand {
+    from {
+        max-height: 54px;
+    }
+    to {
+        max-height: 300px;
+    }
+}
+@keyframes collapse {
+    from {
+        max-height: 300px;
+    }
+    to {
+        max-height: 54px;
+    }
+}
+.navbar-small-wrapper.expanded .rest-pages-wrapper {
+    display: flex;
+}
+.navbar-currentpage-wrapper {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--secondary-50);
+    stroke: var(--secondary-50);
+}
+.navbar-currentpage-wrapper.current {
+    padding: 8px 8px 8px 16px;
+}
+.navbar-currentpage-wrapper.current.expanded {
+    border-bottom: 1px solid var(--secondary-400);
+}
+.navbar-currentpage-wrapper.rest {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--secondary-100);
+}
+.navbar-currentpage-wrapper.rest:hover {
+    color: var(--secondary-50);
+    background-color: var(--additional-400);
+}
+.navbar-menu-btn {
+    height: 36px;
+    padding: 6px;
+    border-radius: 3px;
+}
+.navbar-menu-btn:hover {
+    background-color: var(--secondary-400);
+}
+.rest-pages-wrapper {
+    background-color: var(--secondary-800);
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    overflow: hidden;
+}
+.rest-pages-wrapper.visible {
+    border-top: 1px solid var(--secondary-400);
+}
+
+@media (max-width: 1000px) {
+    .navbar {
+        height: auto;
+        padding-bottom: 20px;
+    }
+    .navbar-wide-wrapper {
+        display: none;
+    }
+    .navbar-small-wrapper {
+        display: flex;
+        width: 100%;
+    }
 }
